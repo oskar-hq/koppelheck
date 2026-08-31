@@ -23,6 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+        with:
+          # aktiviert GitHub Pages beim ersten Lauf automatisch
+          enablement: true
       # Statische Seite - kein Build-Schritt notwendig.
       - uses: actions/upload-pages-artifact@v3
         with:
