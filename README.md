@@ -67,18 +67,27 @@ Keine Build-Schritte, keine Abhängigkeiten: `index.html` im Browser öffnen gen
 ## Hosting auf GitHub Pages
 
 Für die Präsentation läuft die Seite direkt über GitHub Pages — kein Server nötig.
+Der Deploy-Workflow liegt bereits im Repository; **Pages muss aber einmalig von Hand
+eingeschaltet werden**, weil der Automatik-Token von GitHub Actions eine Pages-Site
+nicht selbst anlegen darf (`Resource not accessible by integration`).
 
-**Variante A — direkt aus dem Branch (am einfachsten):**
-Repository → **Settings → Pages** → *Source:* „Deploy from a branch" →
-Branch `claude/party-website-redesign-1vvkyo`, Ordner `/ (root)` → **Save**.
-Nach ein bis zwei Minuten ist die Seite unter
-`https://<organisation>.github.io/koppelheck/` erreichbar.
+**Einmalig einrichten — dauert eine Minute:**
 
-**Variante B — über GitHub Actions:**
-Repository → **Settings → Pages** → *Source:* „GitHub Actions".
-Der Workflow [`.github/workflows/pages.yml`](.github/workflows/pages.yml) läuft dann
-bei jedem Push auf diesen Branch automatisch und lässt sich zusätzlich unter
-*Actions → Deploy to GitHub Pages → Run workflow* von Hand starten.
+1. Im Repository auf **Settings → Pages** gehen
+   ([direkt hier](https://github.com/oskar-hq/koppelheck/settings/pages))
+2. Unter *Source* **„GitHub Actions"** auswählen
+3. Unter **Actions → Deploy to GitHub Pages → Run workflow** einmal starten
+   (Branch `claude/party-website-redesign-1vvkyo` auswählen)
+
+Danach ist die Seite erreichbar unter
+**https://oskar-hq.github.io/koppelheck/** — und jeder weitere Push auf diesen
+Branch aktualisiert sie automatisch.
+
+**Alternative ohne Actions:** unter *Source* stattdessen „Deploy from a branch"
+wählen, Branch `claude/party-website-redesign-1vvkyo`, Ordner `/ (root)`.
+Funktioniert genauso; dann sollte der Workflow
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) deaktiviert werden,
+damit er nicht bei jedem Push rot wird.
 
 Die Datei `.nojekyll` liegt bereits im Repository, damit GitHub die Dateien
 unverändert ausliefert.
