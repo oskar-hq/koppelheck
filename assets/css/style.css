@@ -496,3 +496,97 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
   text-transform: uppercase; color: var(--mute); margin-bottom: 1.2rem;
 }
 .phead .crumb a:hover { color: var(--bone); }
+
+/* --- Schnellzugriff — der wichtigste Block auf dem Handy ----------------- */
+.quick {
+  display: grid; gap: 1px; background: var(--line);
+  border: 1px solid var(--line);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.quick a {
+  background: var(--black); color: var(--bone);
+  padding: 1.15rem 1rem; min-height: 116px;
+  display: grid; align-content: space-between; gap: .7rem;
+  transition: background .15s, color .15s;
+}
+.quick a:hover, .quick a:focus-visible { background: var(--acc); color: var(--acc-ink); }
+.quick .k {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--acc);
+}
+.quick a:hover .k, .quick a:focus-visible .k { color: rgba(18, 0, 14, .65); }
+.quick .v {
+  font-family: var(--display); font-size: clamp(1rem, 4.2vw, 1.25rem); line-height: .95;
+  text-transform: uppercase; letter-spacing: -.01em;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: .6rem;
+  overflow-wrap: anywhere;
+}
+.quick .v i { flex: none; }
+.quick .v i { font-style: normal; font-family: var(--mono); font-size: .8rem; opacity: .6; }
+@media (max-width: 619px)  { .quick a:last-child { grid-column: 1 / -1; min-height: 92px; } }
+@media (min-width: 620px)  { .quick { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1080px) { .quick { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+
+/* --- Mobile-First-Feinschliff -------------------------------------------- */
+@media (max-width: 760px) {
+  /* Hero kürzer: die Infos direkt darunter sollen angeschnitten sichtbar sein */
+  .hero { min-height: 82svh; padding-top: calc(var(--nav-h) + 2.5rem); }
+
+  /* Spec-Listen: schmaleres Label, mehr Platz für den Wert */
+  .spec > div { grid-template-columns: minmax(5rem, 34%) 1fr; gap: .75rem; padding-block: .8rem; }
+  .spec dt { font-size: .66rem; letter-spacing: .08em; }
+
+  /* Tippflächen vergrößern */
+  .btn { padding: 1.05rem 1.4rem; min-height: 52px; }
+  .dl { padding: 1.15rem 0; min-height: 62px; }
+  .acc summary { padding-block: 1.25rem; }
+  .chip { padding: .6rem .85rem; }
+
+  /* Termin-Zeilen kompakter stapeln */
+  .ev { padding-block: 1.6rem; gap: .9rem; }
+  .ev__name { margin-top: -.2rem; }
+}
+
+/* --- Echtes Foto statt Platzhalter --------------------------------------- */
+.photo {
+  border: 1px solid var(--line);
+  background-size: cover; background-position: center;
+  aspect-ratio: 16 / 10;
+}
+.photo--treck { background-image: url('../img/trecker-treck.jpg'); }
+
+/* Hinweis auf ein noch nicht verfügbares Formular */
+.dl--soon { opacity: .45; cursor: default; }
+.dl--soon:hover { color: inherit; }
+.dl--soon:hover .dl__t { color: var(--mute); }
+
+/* --- Tippflächen ---------------------------------------------------------
+   Textlinks sind optisch nur ~17 px hoch. Auf dem Handy wird die Trefferfläche
+   über ein Pseudoelement auf 44 px vergrößert, ohne das Layout zu verändern. */
+@media (max-width: 760px) {
+  .spec dd a,
+  .acc__b a,
+  .col p a,
+  .wrap--tight p a,
+  .crumb a {
+    position: relative;
+    display: inline-block;
+  }
+  .spec dd a::after,
+  .acc__b a::after,
+  .col p a::after,
+  .wrap--tight p a::after,
+  .crumb a::after {
+    content: ''; position: absolute; left: 0; right: 0;
+    top: 50%; transform: translateY(-50%);
+    height: 44px; min-height: 100%;
+  }
+
+  /* Footer-Links stehen untereinander — dort echtes Padding statt Overlay */
+  .foot ul { gap: 0; }
+  .foot ul a { display: block; padding-block: .8rem; }
+
+  /* Kopfzeile */
+  .brand { padding-block: .55rem; }
+  .burger { width: 46px; height: 46px; }
+}

@@ -67,10 +67,16 @@ Keine Build-Schritte: `index.html` im Browser öffnen genügt.
 
 ## Vor dem Live-Gang noch zu erledigen
 
-1. **Fotos einsetzen** — überall, wo ein Platzhalter steht.
+1. **Fotos einsetzen** — bisher gibt es nur die Luftaufnahme vom
+   Trecker-Treck-Gelände (640 × 400 px, für größere Flächen zu klein).
+   Es fehlen Bilder aus der Halle und von den Partys.
    Anleitung: [`assets/img/README.md`](assets/img/README.md)
-2. **PDFs austauschen** — Original-Formulare nach `assets/pdf/` legen,
-   Dateinamen beibehalten, dann stimmen alle Links sofort.
+2. **Zwei Formulare fehlen noch** — Standard Klasse und Oldtimer Klasse.
+   Sie stehen auf der Trecker-Treck-Seite als „Bald" und sind nicht verlinkt.
+   Sobald sie da sind: als `anmeldung-standard-klasse.pdf` bzw.
+   `anmeldung-oldtimer.pdf` nach `assets/pdf/` legen und die beiden
+   `.dl--soon`-Einträge in `trecker-treck.html` zu Links machen.
+   Muttizettel, Super Standard Klasse und Human Pulling sind bereits eingebaut.
 3. **Social-Links eintragen** — echte Instagram- und Facebook-URLs
    (aktuell Platzhalter).
 4. **Kontaktformular anbinden** — läuft derzeit über einen `mailto:`-Fallback.
@@ -83,31 +89,26 @@ Keine Build-Schritte: `index.html` im Browser öffnen genügt.
 
 ## Hosting auf GitHub Pages
 
-Für die Präsentation läuft die Seite direkt über GitHub Pages — kein Server nötig.
-Der Deploy-Workflow liegt bereits im Repository; **Pages muss aber einmalig von Hand
-eingeschaltet werden**, weil der Automatik-Token von GitHub Actions eine Pages-Site
-nicht selbst anlegen darf (`Resource not accessible by integration`).
+**Ein einziger Schritt, kein Workflow nötig:**
 
-**Einmalig einrichten — dauert eine Minute:**
-
-1. Im Repository auf **Settings → Pages** gehen
+1. Repository → **Settings → Pages**
    ([direkt hier](https://github.com/oskar-hq/koppelheck/settings/pages))
-2. Unter *Source* **„GitHub Actions"** auswählen
-3. Unter **Actions → Deploy to GitHub Pages → Run workflow** einmal starten
-   (Branch `claude/party-website-redesign-1vvkyo` auswählen)
+2. *Source:* **„Deploy from a branch"**
+3. Branch: `claude/party-website-redesign-1vvkyo`, Ordner: **`/ (root)`** → **Save**
 
-Danach ist die Seite erreichbar unter
-**https://oskar-hq.github.io/koppelheck/** — und jeder weitere Push auf diesen
-Branch aktualisiert sie automatisch.
+Nach ein bis zwei Minuten läuft die Seite unter
+**https://oskar-hq.github.io/koppelheck/** und aktualisiert sich bei jedem Push
+auf diesen Branch von selbst.
 
-**Alternative ohne Actions:** unter *Source* stattdessen „Deploy from a branch"
-wählen, Branch `claude/party-website-redesign-1vvkyo`, Ordner `/ (root)`.
-Funktioniert genauso; dann sollte der Workflow
-[`.github/workflows/pages.yml`](.github/workflows/pages.yml) deaktiviert werden,
-damit er nicht bei jedem Push rot wird.
+### Warum kein GitHub-Actions-Workflow
 
-Die Datei `.nojekyll` liegt bereits im Repository, damit GitHub die Dateien
-unverändert ausliefert.
+Der ursprüngliche Workflow ist zweimal an `actions/configure-pages` gescheitert:
+`Resource not accessible by integration`. Der Automatik-Token von GitHub Actions
+darf eine Pages-Site nicht selbst anlegen, und solange Pages nicht schon
+eingerichtet ist, bricht der Workflow ab und verschickt Fehlermails. Für eine
+Seite ganz ohne Build-Schritt bringt er ohnehin nichts — deshalb ist er
+entfernt. Die Datei `.nojekyll` sorgt dafür, dass GitHub die Dateien unverändert
+ausliefert.
 
 Später ist der Umzug auf die eigene Domain `wiesenhalle-koppelheck.de` jederzeit
 möglich — alle Pfade sind relativ, es muss nichts umgeschrieben werden.
