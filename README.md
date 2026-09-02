@@ -9,6 +9,10 @@ das sind die Merkmale, an denen Standard-Layouts sofort erkennbar sind. Die
 Signalfarbe ist das Magenta vom Original-Flyer. Der Trecker Treck bekommt als
 Tagesveranstaltung ein eigenes Grün.
 
+Als Überschriftenschrift läuft **Archivo Black** — sie kommt dem
+Original-Logo am nächsten. Für Labels und Zahlen **Space Mono**, für Fließtext
+**Inter**.
+
 ---
 
 ## Aufbau der Startseite

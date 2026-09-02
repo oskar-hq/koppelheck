@@ -19,14 +19,14 @@
   --dim:       rgba(242, 239, 232, .58);
   --mute:      rgba(242, 239, 232, .38);
 
-  --display: 'Anton', 'Arial Narrow', Impact, sans-serif;
+  --display: 'Archivo Black', 'Arial Black', 'Helvetica Neue', sans-serif;
   --mono:    'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Typo-Skala — große Sprünge statt gleichmäßiger Abstufung */
-  --d1: clamp(2.8rem, 10.5vw, 8.5rem);
-  --d2: clamp(2.4rem, 7.5vw, 6.5rem);
-  --d3: clamp(1.7rem, 3.6vw, 3rem);
+  --d1: clamp(2.1rem, 6.4vw, 4.6rem);
+  --d2: clamp(1.8rem, 4.4vw, 3.4rem);
+  --d3: clamp(1.4rem, 2.8vw, 2.2rem);
   --d4: clamp(1.25rem, 2vw, 1.6rem);
   --tx: clamp(.98rem, .95rem + .2vw, 1.1rem);
   --sm: .74rem;
@@ -81,8 +81,8 @@ ul, ol, dl { list-style: none; padding: 0; }
 h1, h2, h3, h4 {
   font-family: var(--display);
   font-weight: 400;
-  line-height: .84;
-  letter-spacing: -.018em;
+  line-height: .95;
+  letter-spacing: -.015em;
   text-transform: uppercase;
   overflow-wrap: break-word;
   hyphens: auto;
@@ -186,7 +186,7 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
   border-bottom: 1px solid transparent;
   transition: background .3s, border-color .3s;
 }
-.nav.is-stuck { background: rgba(10, 10, 11, .94); border-bottom-color: var(--line); }
+.nav.is-stuck { background: var(--black); border-bottom-color: var(--line); }
 .nav__in {
   width: 100%; max-width: var(--wrap); margin-inline: auto;
   padding-inline: var(--gutter);
@@ -236,35 +236,36 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
 
 /* --- Hero ---------------------------------------------------------------- */
 .hero {
-  position: relative; min-height: 100svh;
-  display: grid; align-items: center;
-  padding-top: calc(var(--nav-h) + 2rem);
-  padding-bottom: 2rem;
-  isolation: isolate;
+  position: relative; overflow: hidden;
+  min-height: clamp(330px, 54vh, 520px);
+  display: grid; align-items: end;
+  padding-top: calc(var(--nav-h) + 1.5rem);
+  padding-bottom: clamp(1.6rem, 4vw, 2.6rem);
 }
-/* three.js-Bühne — liegt fest hinter dem Inhalt */
+/* three.js-Bühne — liegt IM Hero, nicht fest im Fenster.
+   Fixiert lief sie sonst über die Sektionen darunter. */
 #rig {
-  position: fixed; inset: 0; z-index: -1;
-  opacity: 0; transition: opacity .6s ease;
+  position: absolute; inset: 0; z-index: 0;
+  opacity: 0; transition: opacity .5s ease;
   pointer-events: none;
 }
 .rig-on #rig { opacity: 1; }
 
 /* Fallback ohne WebGL: Traverse als reines CSS-Muster */
 .truss {
-  position: absolute; left: 0; right: 0; top: calc(var(--nav-h) + 10px); height: 66px;
-  z-index: -1; opacity: .5;
+  position: absolute; left: 0; right: 0; top: calc(var(--nav-h) + 6px); height: 46px;
+  z-index: 0; opacity: .45;
   border-top: 3px solid var(--ink-2); border-bottom: 3px solid var(--ink-2);
   background:
-    repeating-linear-gradient(64deg,  transparent 0 26px, var(--ink-2) 26px 29px) ,
-    repeating-linear-gradient(-64deg, transparent 0 26px, var(--ink-2) 26px 29px);
+    repeating-linear-gradient(64deg,  transparent 0 22px, var(--ink-2) 22px 25px),
+    repeating-linear-gradient(-64deg, transparent 0 22px, var(--ink-2) 22px 25px);
 }
 .rig-on .truss { display: none; }
 
-.hero__in { display: grid; gap: 1.4rem; align-content: center; }
+.hero__in { position: relative; z-index: 1; display: grid; gap: .9rem; }
 .hero__slogan {
   font-family: var(--display); font-size: var(--d1);
-  line-height: .86; letter-spacing: -.03em; text-transform: none;
+  line-height: .95; letter-spacing: -.025em; text-transform: none;
 }
 .hero__slogan span { color: var(--acc); }
 
@@ -493,9 +494,6 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
 
 /* --- Mobile-First-Feinschliff -------------------------------------------- */
 @media (max-width: 760px) {
-  /* Hero kürzer: die Infos direkt darunter sollen angeschnitten sichtbar sein */
-  .hero { min-height: 82svh; padding-top: calc(var(--nav-h) + 2.5rem); }
-
   /* Spec-Listen: schmaleres Label, mehr Platz für den Wert */
   .spec > div { grid-template-columns: minmax(5rem, 34%) 1fr; gap: .75rem; padding-block: .8rem; }
   .spec dt { font-size: .66rem; letter-spacing: .08em; }

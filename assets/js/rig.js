@@ -16,6 +16,8 @@
 
   var canvas = document.getElementById('rig');
   if (!canvas) return;
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
 
   var renderer;
   try {
@@ -24,21 +26,20 @@
 
   var small = window.innerWidth < 760;
   var COUNT = small ? 5 : 9;          // Anzahl Scheinwerfer
-  var SPAN  = small ? 11 : 19;        // Breite der Traverse
-  var TRUSS_Y = 6.0, TRUSS_Z = -6.0;  // Position der Traverse
+  var SPAN  = 54;                     // Traverse bewusst breiter als jedes Fenster
+  var TRUSS_Y = 5.6, TRUSS_Z = -6.0;  // Position der Traverse
   var HEAD_Y  = TRUSS_Y - 0.75;
   var BEAM_LEN = 15;
   var PITCH_START = -Math.PI / 4;     // 45° — auf den Boden
   var PITCH_END   = -Math.PI / 2;     // 90° — nach vorne
 
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, small ? 1 : 1.6));
-  renderer.setSize(window.innerWidth, window.innerHeight, false);
   renderer.setClearColor(0x000000, 0);
 
   var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 200);
-  camera.position.set(0, 1.2, 10);
-  camera.lookAt(0, 1.2, 0);
+  var camera = new THREE.PerspectiveCamera(48, 1, 0.1, 200);
+  camera.position.set(0, 1.0, 10);
+  camera.lookAt(0, 1.0, 0);
 
   /* ----- Traverse ------------------------------------------------------- */
   var steel = new THREE.MeshBasicMaterial({ color: 0x24242a });
@@ -118,11 +119,8 @@
 
   var heads = [];
   for (var i = 0; i < COUNT; i++) {
-    var t = COUNT === 1 ? 0.5 : i / (COUNT - 1);
-    var px = -SPAN / 2 + 0.9 + t * (SPAN - 1.8);
-
     var pivot = new THREE.Group();
-    pivot.position.set(px, HEAD_Y, TRUSS_Z);
+    pivot.position.set(0, HEAD_Y, TRUSS_Z);
 
     // Gehäuse
     var body = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.22, 0.5, 10), steel);
@@ -167,22 +165,30 @@
 
   /* ----- Scroll-Steuerung ----------------------------------------------- */
   var progress = 0, target = 0, visible = true, raf = null;
+  var hero = canvas.parentElement;
 
   function readScroll() {
-    var vh = window.innerHeight || 1;
-    target = Math.min(Math.max(window.scrollY / (vh * 0.85), 0), 1);
-
-    // Bühne ausblenden, sobald der Inhalt übernimmt
-    var fade = 1 - Math.min(Math.max((window.scrollY - vh * 1.15) / (vh * 0.6), 0), 1);
-    canvas.style.opacity = fade;
-    visible = fade > 0.01;
+    var box = hero.getBoundingClientRect();
+    var span = Math.max(box.height * 0.8, 1);
+    target = Math.min(Math.max(-box.top / span, 0), 1);
+    // Nicht rendern, solange der Hero nicht im Bild ist
+    visible = box.bottom > 0 && box.top < window.innerHeight;
   }
 
-  function resize() {
-    var w = window.innerWidth, h = window.innerHeight;
+  // Scheinwerfer über die tatsächlich sichtbare Breite verteilen
+  function layout() {
+    var w = canvas.clientWidth || 1, h = canvas.clientHeight || 1;
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h, false);
+
+    var dist = camera.position.z - TRUSS_Z;
+    var visH = 2 * dist * Math.tan((camera.fov / 2) * Math.PI / 180);
+    var usable = visH * camera.aspect * 0.88;
+    for (var i = 0; i < heads.length; i++) {
+      var t = heads.length === 1 ? 0.5 : i / (heads.length - 1);
+      heads[i].pivot.position.x = -usable / 2 + t * usable;
+    }
   }
 
   var clock = new THREE.Clock();
@@ -215,9 +221,9 @@
   }
 
   readScroll();
-  resize();
+  layout();
   window.addEventListener('scroll', readScroll, { passive: true });
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', function () { layout(); readScroll(); });
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) { cancelAnimationFrame(raf); raf = null; }
     else if (!raf) { clock.getDelta(); frame(); }
