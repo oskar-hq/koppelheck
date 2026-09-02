@@ -4,148 +4,147 @@
 (function () {
   'use strict';
 
-  /* --- Navigation: Sticky-Zustand + Mobile-Menü -------------------------- */
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- Navigation -------------------------------------------------------- */
   var nav = document.querySelector('.nav');
-  var burger = document.querySelector('.burger');
-  var links = document.querySelector('.nav__links');
-
   if (nav) {
-    var setStuck = function () {
-      nav.classList.toggle('is-stuck', window.scrollY > 12);
+    var stick = function () { nav.classList.toggle('is-stuck', window.scrollY > 8); };
+    stick();
+    window.addEventListener('scroll', stick, { passive: true });
+  }
+
+  var burger = document.querySelector('.burger');
+  var menu = document.querySelector('.menu');
+  if (burger && menu) {
+    var setMenu = function (open) {
+      burger.setAttribute('aria-expanded', String(open));
+      menu.classList.toggle('is-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
     };
-    setStuck();
-    window.addEventListener('scroll', setStuck, { passive: true });
-  }
-
-  if (burger && links) {
     burger.addEventListener('click', function () {
-      var open = burger.getAttribute('aria-expanded') === 'true';
-      burger.setAttribute('aria-expanded', String(!open));
-      links.classList.toggle('is-open', !open);
+      setMenu(burger.getAttribute('aria-expanded') !== 'true');
     });
-    links.addEventListener('click', function (e) {
-      if (e.target.closest('a')) {
-        burger.setAttribute('aria-expanded', 'false');
-        links.classList.remove('is-open');
-      }
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        burger.setAttribute('aria-expanded', 'false');
-        links.classList.remove('is-open');
-      }
-    });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
   }
 
-  /* --- Scroll-Reveal ----------------------------------------------------- */
-  var reveals = document.querySelectorAll('.reveal');
-  if (reveals.length) {
-    if ('IntersectionObserver' in window) {
+  /* --- LED-Leiste am linken Rand ---------------------------------------- */
+  var rail = document.querySelector('.rail__fill');
+  if (rail) {
+    var railUpdate = function () {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      rail.style.height = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+    };
+    railUpdate();
+    window.addEventListener('scroll', railUpdate, { passive: true });
+    window.addEventListener('resize', railUpdate);
+  }
+
+  /* --- LED-Bars als Sektionstrenner ------------------------------------- */
+  document.querySelectorAll('[data-leds]').forEach(function (bar) {
+    var build = function () {
+      var n = Math.max(12, Math.round(bar.offsetWidth / 13));
+      if (bar.childElementCount === n) return;
+      bar.textContent = '';
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < n; i++) {
+        var led = document.createElement('span');
+        led.style.setProperty('--i', i);
+        frag.appendChild(led);
+      }
+      bar.appendChild(frag);
+    };
+    build();
+    window.addEventListener('resize', build);
+  });
+
+  /* --- Sichtbarkeit: Reveal + LED-Bars zünden --------------------------- */
+  var watched = document.querySelectorAll('.rv, .ledbar');
+  if (watched.length) {
+    if ('IntersectionObserver' in window && !reduced) {
       var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-in');
-            io.unobserve(entry.target);
-          }
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          en.target.classList.add('is-in');
+          io.unobserve(en.target);
         });
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-      reveals.forEach(function (el) { io.observe(el); });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
+      watched.forEach(function (el) { io.observe(el); });
     } else {
-      reveals.forEach(function (el) { el.classList.add('is-in'); });
+      watched.forEach(function (el) { el.classList.add('is-in'); });
     }
   }
 
   /* --- Countdown --------------------------------------------------------- */
   var cd = document.querySelector('[data-countdown]');
   if (cd) {
-    var target = new Date(cd.getAttribute('data-countdown')).getTime();
-    var out = {
-      d: cd.querySelector('[data-cd="d"]'),
-      h: cd.querySelector('[data-cd="h"]'),
-      m: cd.querySelector('[data-cd="m"]'),
-      s: cd.querySelector('[data-cd="s"]')
+    var end = new Date(cd.getAttribute('data-countdown')).getTime();
+    var slot = {
+      d: cd.querySelector('[data-cd="d"]'), h: cd.querySelector('[data-cd="h"]'),
+      m: cd.querySelector('[data-cd="m"]'), s: cd.querySelector('[data-cd="s"]')
     };
     var pad = function (n) { return String(n).padStart(2, '0'); };
-
+    var timer;
     var tick = function () {
-      var diff = target - Date.now();
+      var diff = end - Date.now();
       if (diff <= 0) {
-        cd.classList.add('is-live');
-        if (out.d) out.d.textContent = '00';
-        if (out.h) out.h.textContent = '00';
-        if (out.m) out.m.textContent = '00';
-        if (out.s) out.s.textContent = '00';
+        Object.keys(slot).forEach(function (k) { if (slot[k]) slot[k].textContent = '00'; });
         clearInterval(timer);
         return;
       }
       var s = Math.floor(diff / 1000);
-      if (out.d) out.d.textContent = pad(Math.floor(s / 86400));
-      if (out.h) out.h.textContent = pad(Math.floor(s / 3600) % 24);
-      if (out.m) out.m.textContent = pad(Math.floor(s / 60) % 60);
-      if (out.s) out.s.textContent = pad(s % 60);
+      if (slot.d) slot.d.textContent = Math.floor(s / 86400);
+      if (slot.h) slot.h.textContent = pad(Math.floor(s / 3600) % 24);
+      if (slot.m) slot.m.textContent = pad(Math.floor(s / 60) % 60);
+      if (slot.s) slot.s.textContent = pad(s % 60);
     };
     tick();
-    var timer = setInterval(tick, 1000);
+    timer = setInterval(tick, 1000);
   }
 
-  /* --- Vergangene Termine ausgrauen -------------------------------------- */
+  /* --- Vergangene Termine kennzeichnen ---------------------------------- */
   var today = new Date(); today.setHours(0, 0, 0, 0);
-  document.querySelectorAll('.event[data-date]').forEach(function (el) {
-    if (new Date(el.getAttribute('data-date')) < today) el.classList.add('is-past');
+  document.querySelectorAll('.ev[data-date]').forEach(function (el) {
+    if (new Date(el.getAttribute('data-date')) < today) el.style.opacity = '.45';
   });
 
-  /* --- Kontaktformular: Validierung + Mail-Fallback ---------------------- */
-  var form = document.querySelector('[data-contact-form]');
+  /* --- Kontaktformular --------------------------------------------------- */
+  var form = document.querySelector('[data-form]');
   if (form) {
-    var status = form.querySelector('[data-form-status]');
-
-    var invalidate = function (field, msg) {
-      var wrap = field.closest('.field');
-      wrap.classList.add('has-error');
-      var err = wrap.querySelector('.field__error');
-      if (err && msg) err.textContent = msg;
-    };
+    var status = form.querySelector('[data-status]');
 
     form.addEventListener('input', function (e) {
-      var wrap = e.target.closest('.field');
-      if (wrap) wrap.classList.remove('has-error');
+      var f = e.target.closest('.f');
+      if (f) f.classList.remove('err');
     });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var ok = true;
+      var fail = function (el) { el.closest('.f').classList.add('err'); ok = false; };
 
       var name = form.querySelector('#name');
       var mail = form.querySelector('#email');
-      var msg = form.querySelector('#nachricht');
+      var text = form.querySelector('#nachricht');
 
-      if (!name.value.trim()) { invalidate(name, 'Bitte gib deinen Namen an.'); ok = false; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail.value.trim())) {
-        invalidate(mail, 'Bitte gib eine gültige E-Mail-Adresse an.'); ok = false;
-      }
-      if (!msg.value.trim()) { invalidate(msg, 'Bitte schreib uns kurz, worum es geht.'); ok = false; }
+      if (!name.value.trim()) fail(name);
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail.value.trim())) fail(mail);
+      if (!text.value.trim()) fail(text);
 
-      if (!ok) {
-        form.querySelector('.has-error input, .has-error textarea').focus();
-        return;
-      }
+      if (!ok) { form.querySelector('.err input, .err textarea').focus(); return; }
 
-      /* Ohne Backend: sauberer mailto-Fallback.
+      /* Ohne Backend: mailto-Fallback.
          Beim Live-Gang hier den Endpoint des Formular-Dienstes eintragen. */
-      var betreff = form.querySelector('#betreff');
-      var subject = betreff && betreff.value.trim()
-        ? betreff.value.trim()
-        : 'Anfrage über wiesenhalle-koppelheck.de';
-      var body = 'Name: ' + name.value.trim() + '\nE-Mail: ' + mail.value.trim() + '\n\n' + msg.value.trim();
-
+      var subj = form.querySelector('#betreff');
       window.location.href = 'mailto:info@wiesenhalle.de'
-        + '?subject=' + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(body);
+        + '?subject=' + encodeURIComponent(subj && subj.value.trim() ? subj.value.trim() : 'Anfrage über die Website')
+        + '&body=' + encodeURIComponent('Name: ' + name.value.trim() + '\nE-Mail: ' + mail.value.trim() + '\n\n' + text.value.trim());
 
       if (status) {
         status.hidden = false;
-        status.textContent = 'Danke! Dein E-Mail-Programm öffnet sich mit der fertigen Nachricht. '
-          + 'Klappt das nicht? Schreib uns direkt an info@wiesenhalle.de.';
+        status.textContent = 'Dein E-Mail-Programm öffnet sich mit der fertigen Nachricht. Klappt das nicht: info@wiesenhalle.de';
       }
     });
   }

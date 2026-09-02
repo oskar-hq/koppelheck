@@ -1,66 +1,83 @@
 # Wiesenhalle Koppelheck — Website-Relaunch (Entwurf)
 
-Ein kompletter Neuentwurf der Website für die **Wiesenhalle Koppelheck** in Niesgrau —
-gebaut als schnelle, eigenständige Website ohne Baukasten-Abhängigkeit.
+Ein Neuentwurf der Website für die **Wiesenhalle Koppelheck** in Niesgrau —
+eigenständig, ohne Baukasten, ohne Framework.
 
-**Ziel:** die Halle so zeigen, wie sich die Nächte dort anfühlen — laut, nah, echt —
-und dabei die Infos, die Gäste wirklich suchen (Termin, Einlass, Preis, Muttizettel,
-Anfahrt), in maximal einem Klick erreichbar machen.
+**Gestalterische Linie:** schwarz, eine einzige Signalfarbe, harte Kanten, große
+Typo bis an den Rand. Keine Verläufe, keine Weichzeichner, keine runden Ecken —
+das sind die Merkmale, an denen Standard-Layouts sofort erkennbar sind. Die
+Signalfarbe ist das Magenta vom Original-Flyer. Der Trecker Treck bekommt als
+Tagesveranstaltung ein eigenes Grün.
 
 ---
 
-## Was neu ist
+## Die zwei Bewegungen
 
-| | Bisher | Neu |
+**Scheinwerfer-Traverse (three.js).** Oben auf der Startseite hängen Movingheads
+unter einer Traverse und leuchten im 45°-Winkel auf den Boden. Scrollt man nach
+unten, fahren sie auf 90° hoch und zeigen nach vorne — der Lichtkegel
+verschwindet, übrig bleibt die leuchtende LED. Gesteuert wird das rein über die
+Scrollposition. Ohne WebGL, bei abgeschalteten Animationen (`prefers-reduced-motion`)
+oder wenn die Bibliothek nicht lädt, zeigt die Seite eine Traverse aus reinem CSS
+und funktioniert vollständig.
+
+**LED-Leiste.** Am linken Rand läuft eine Diodenleiste durch die ganze Seite und
+füllt sich mit dem Scrollfortschritt. Zwischen den Sektionen sitzen waagerechte
+LED-Bars, die beim Hereinscrollen von links nach rechts zünden. Beide werden per
+JavaScript aus einzelnen Segmenten aufgebaut, damit das Markup lesbar bleibt.
+
+---
+
+## Was aufgeräumt wurde
+
+| | Vorher | Jetzt |
 |---|---|---|
-| **Auftritt** | heller Standard-Baukasten, wirkt wie jede zweite Vereinsseite | dunkles Nacht-Design mit eigener Handschrift, das zur Location passt |
-| **Startseite** | Termin-Kacheln ohne Hierarchie | großer Hero mit dem nächsten Termin, Live-Countdown und allen Eckdaten sofort sichtbar |
-| **Termine** | Aufklapp-Liste, Details versteckt | eigene Seite, jeder Termin als Karte mit Preisen, Line-up und Reservierung |
-| **Trecker Treck** | eine sehr lange Textseite + 5 Unterseiten | eine strukturierte Seite mit Sprungmarken, Zeitstrahl, Klassen-Übersicht und allen Downloads an einem Ort |
-| **Mobil** | Desktop-Layout verkleinert | von Grund auf für das Handy gebaut — dort schaut fast jeder Gast nach |
-| **Tempo** | Baukasten-Ballast | reines HTML/CSS/JS, kein Framework, lädt praktisch sofort |
-| **Karte** | Google Maps (einwilligungspflichtig) | OpenStreetMap — datensparsam, kein Cookie-Banner nötig |
+| **Seiten** | 7 | 6 — die Terminseite ist in die Startseite aufgegangen |
+| **Navigation** | 5 Punkte | 4 Punkte |
+| **Startseite** | 8 Abschnitte | 5 Abschnitte |
+| **Termine** | eigene Seite, Details hinter „Mehr" | alle vier Termine mit allen Details direkt auf der Startseite |
+| **Trecker Treck** | 1 Textseite + 5 Unterseiten | eine Seite mit Sprungmarken |
+| **Seitenlänge Start** | ~6300 px | ~4500 px bei mehr sichtbarem Inhalt |
 
-Inhaltlich ist alles von der bestehenden Seite übernommen: Termine, Preise,
-Trecker-Treck-Klassen, Human Pulling, Muttizettel, Impressum.
+Nichts musste dafür weggelassen werden: Termine, Preise, Klassen, Human Pulling,
+Muttizettel und Impressum sind vollständig übernommen. Aus Emoji-Listen sind
+Spec-Listen mit Mono-Labels geworden — schneller zu scannen und weniger beliebig.
 
 ---
 
 ## Aufbau
 
 ```
-index.html            Startseite — nächster Termin, Countdown, Saisonübersicht
-veranstaltungen.html  Alle vier Termine 2026 mit Details und Preisen
+index.html            Start — Hero, alle Termine, Trecker Treck, Infos
 trecker-treck.html    Trecker Treck 2026, Klassen, Human Pulling, Anmeldung
-muttizettel.html      Muttizettel-Download + Erklärung
-kontakt.html          Kontaktformular, Adresse, Anfahrt
+muttizettel.html      Download + Erklärung
+kontakt.html          Formular, Adresse, Anfahrt
 impressum.html
 datenschutz.html
-assets/css/style.css  Design-System (Farben, Typo, Komponenten)
-assets/js/main.js     Navigation, Countdown, Scroll-Effekte, Formular
+assets/css/style.css  Design-System
+assets/js/main.js     Navigation, LED-Leiste, Countdown, Formular
+assets/js/rig.js      Scheinwerfer-Traverse (three.js)
 assets/pdf/           Formulare (aktuell Platzhalter)
 assets/img/           Fotos (siehe assets/img/README.md)
 ```
 
-Keine Build-Schritte, keine Abhängigkeiten: `index.html` im Browser öffnen genügt.
+Keine Build-Schritte: `index.html` im Browser öffnen genügt.
 
 ---
 
 ## Vor dem Live-Gang noch zu erledigen
 
-1. **Fotos einsetzen** — überall, wo aktuell ein Platzhalter steht.
+1. **Fotos einsetzen** — überall, wo ein Platzhalter steht.
    Anleitung: [`assets/img/README.md`](assets/img/README.md)
-2. **PDFs austauschen** — die Original-Formulare nach `assets/pdf/` legen,
+2. **PDFs austauschen** — Original-Formulare nach `assets/pdf/` legen,
    Dateinamen beibehalten, dann stimmen alle Links sofort.
-3. **Social-Links eintragen** — die echten Instagram- und Facebook-URLs
-   (aktuell Platzhalter, im Quelltext mit `TODO` markiert).
-4. **Kontaktformular anbinden** — läuft derzeit über einen sauberen
-   `mailto:`-Fallback. Für echten Versand einen Formular-Dienst
-   (z. B. Formspree, Netlify Forms) in `assets/js/main.js` eintragen.
-5. **Datenschutzerklärung** — die bestehende Fassung übernehmen bzw. an die
-   tatsächlich genutzten Dienste anpassen und rechtlich prüfen lassen.
-6. Optional: Google Fonts lokal ausliefern, dann geht gar keine Verbindung
-   mehr an externe Server.
+3. **Social-Links eintragen** — echte Instagram- und Facebook-URLs
+   (aktuell Platzhalter).
+4. **Kontaktformular anbinden** — läuft derzeit über einen `mailto:`-Fallback.
+   Für echten Versand einen Formular-Dienst in `assets/js/main.js` eintragen.
+5. **Datenschutzerklärung** — bestehende Fassung übernehmen und prüfen lassen.
+6. Optional: Google Fonts und three.js lokal ausliefern, dann geht keine
+   Verbindung mehr an externe Server.
 
 ---
 
