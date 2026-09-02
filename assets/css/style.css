@@ -464,29 +464,34 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
 
 /* --- Schnellzugriff — der wichtigste Block auf dem Handy ----------------- */
 .quick {
-  display: grid; gap: 1px; background: var(--line);
-  border: 1px solid var(--line);
+  display: grid; gap: 1px;
+  background: rgba(255, 46, 204, .34);          /* wird zur Trennlinie */
+  border: 1px solid rgba(255, 46, 204, .34);
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .quick a {
-  background: var(--black); color: var(--bone);
+  background: #1D0A19;                          /* Schwarz mit einem Schuss Magenta */
+  color: var(--bone);
   padding: 1.15rem 1rem; min-height: 116px;
   display: grid; align-content: space-between; gap: .7rem;
   transition: background .15s, color .15s;
 }
-.quick a:hover, .quick a:focus-visible { background: var(--acc); color: var(--acc-ink); }
+.quick a:hover, .quick a:focus-visible, .quick a:active {
+  background: var(--acc); color: var(--acc-ink);
+}
 .quick .k {
   font-family: var(--mono); font-size: 10px; font-weight: 700;
-  letter-spacing: .16em; text-transform: uppercase; color: var(--acc);
+  letter-spacing: .16em; text-transform: uppercase; color: #FF6FDC;
+  display: flex; align-items: center; justify-content: space-between; gap: .5rem;
 }
+.quick .k i { font-style: normal; color: var(--mute); letter-spacing: .08em; }
+.quick a:hover .k i, .quick a:focus-visible .k i { color: rgba(18, 0, 14, .6); }
 .quick a:hover .k, .quick a:focus-visible .k { color: rgba(18, 0, 14, .65); }
 .quick .v {
   font-family: var(--display); font-size: clamp(1rem, 4.2vw, 1.25rem); line-height: .95;
   text-transform: uppercase; letter-spacing: -.01em;
-  display: flex; align-items: flex-end; justify-content: space-between; gap: .6rem;
-  overflow-wrap: anywhere;
+  display: block;
 }
-.quick .v i { flex: none; }
 .quick .v i { font-style: normal; font-family: var(--mono); font-size: .8rem; opacity: .6; }
 @media (max-width: 619px)  { .quick a:last-child { grid-column: 1 / -1; min-height: 92px; } }
 @media (min-width: 620px)  { .quick { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
