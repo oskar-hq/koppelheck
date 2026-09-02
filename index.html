@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wiesenhalle Koppelheck — deine Partylocation in Niesgrau</title>
-<meta name="description" content="Partys und Trecker Treck in der Wiesenhalle Koppelheck, Niesgrau. Alle Termine 2026, Einlass, Preise, Muttizettel und Anfahrt auf einen Blick.">
+<meta name="description" content="Partys und Trecker Treck in der Wiesenhalle Koppelheck, Niesgrau. Termine 2026, Einlass, Preise, Muttizettel und Anfahrt auf einen Blick.">
 <meta name="theme-color" content="#0A0A0B">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Wiesenhalle Koppelheck — deine Partylocation in Niesgrau">
-<meta property="og:description" content="Partys und Trecker Treck in der Wiesenhalle Koppelheck, Niesgrau. Alle Termine 2026, Einlass, Preise, Muttizettel und Anfahrt auf einen Blick.">
+<meta property="og:description" content="Partys und Trecker Treck in der Wiesenhalle Koppelheck, Niesgrau. Termine 2026, Einlass, Preise, Muttizettel und Anfahrt auf einen Blick.">
 <meta property="og:locale" content="de_DE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,16 +18,13 @@
 </head>
 <body>
 <a class="skip" href="#main">Zum Inhalt</a>
-
-<aside class="rail" aria-hidden="true">
-  <span class="rail__cap">Koppelheck</span>
-  <div class="rail__track"><div class="rail__fill"></div><div class="rail__seg"></div></div>
-  <span class="rail__cap">Niesgrau</span>
-</aside>
+<div class="prog" aria-hidden="true"></div>
 
 <header class="nav">
   <div class="nav__in">
-    <a class="brand" href="index.html">Koppelheck<b>.</b></a>
+    <a class="brand" href="index.html" aria-label="Wiesenhalle Koppelheck — Startseite">
+      <img src="assets/img/logo.png" width="298" height="46" alt="Koppelheck">
+    </a>
     <nav class="menu" id="menu" aria-label="Hauptnavigation">
       <a href="index.html#termine" aria-current="page">Termine</a>
       <a href="trecker-treck.html">Trecker Treck</a>
@@ -46,201 +43,139 @@
 <section class="hero">
   <canvas id="rig" aria-hidden="true"></canvas>
   <div class="truss" aria-hidden="true"></div>
-
-  <div class="wrap hero__words">
-    <span>Deine</span>
-    <span>Nacht beginnt</span>
-    <span>hier</span>
-  </div>
-
-  <div class="wrap">
-    <div class="hero__bar">
-      <div>
-        <p class="lbl">Nächster Termin</p>
-        <p class="d3" style="margin-top:.6rem">12.09.2026 — 90/2000er Party</p>
-        <p class="dim" style="margin-top:.5rem">Einlass 21:00 · Eintritt 10 € · Kay van Schall &amp; FLAEK</p>
-      </div>
-      <div class="cd" data-countdown="2026-09-12T21:00:00+02:00">
-        <div><b data-cd="d">0</b><small>Tage</small></div>
-        <div><b data-cd="h">00</b><small>Std</small></div>
-        <div><b data-cd="m">00</b><small>Min</small></div>
-        <div><b data-cd="s">00</b><small>Sek</small></div>
-      </div>
-    </div>
+  <div class="wrap hero__in">
+    <p class="lbl">Wiesenhalle Koppelheck — Niesgrau</p>
+    <h1 class="hero__slogan">…deine<br><span>Partylocation!</span></h1>
   </div>
 </section>
 
 <div class="ledbar" data-leds aria-hidden="true"></div>
 
-<!-- ==================== SCHNELLZUGRIFF ==================== -->
-<section class="sec sec--sm" aria-label="Schnellzugriff">
-  <div class="wrap">
-    <nav class="quick">
-      <a href="#termine">
-        <span class="k">Wann ist was</span>
-        <span class="v">Termine<i>↓</i></span>
-      </a>
-      <a href="assets/pdf/muttizettel.pdf" download>
-        <span class="k">Unter 18</span>
-        <span class="v">Muttizettel<i>PDF</i></span>
-      </a>
-      <a href="trecker-treck.html#anmeldung">
-        <span class="k">Mitmachen</span>
-        <span class="v">Anmeldung<i>PDF</i></span>
-      </a>
-      <a href="kontakt.html#anfahrt">
-        <span class="k">Wo genau</span>
-        <span class="v">Anfahrt<i>→</i></span>
-      </a>
-      <a href="tel:+491708036128">
-        <span class="k">Direkt fragen</span>
-        <span class="v">Anrufen<i>☎</i></span>
-      </a>
-    </nav>
+<!-- ==================== NÄCHSTER TERMIN ==================== -->
+<section class="next" id="termine">
+  <div class="wrap next__in">
+    <div>
+      <p class="lbl">Nächster Termin</p>
+      <p class="next__date">Samstag, 12. September 2026</p>
+      <h2 class="next__name">90/2000er Party</h2>
+      <p class="next__facts">
+        <span>Einlass 21:00</span>
+        <span>Eintritt 10 €</span>
+        <span>Kay van Schall &amp; FLAEK</span>
+        <span>21–22 Uhr Cola Korn 1 €</span>
+      </p>
+    </div>
+    <div class="cd" data-countdown="2026-09-12T21:00:00+02:00" aria-label="Countdown">
+      <div><b data-cd="d">0</b><small>Tage</small></div>
+      <div><b data-cd="h">00</b><small>Std</small></div>
+      <div><b data-cd="m">00</b><small>Min</small></div>
+    </div>
   </div>
 </section>
 
-<!-- ==================== TERMINE ==================== -->
-<section class="sec band" id="termine">
+<!-- ==================== SCHNELLZUGRIFF ==================== -->
+<nav class="wrap quick-wrap" aria-label="Schnellzugriff">
+  <div class="quick">
+    <a href="#termine"><span class="k">Wann ist was</span><span class="v">Termine<i>↓</i></span></a>
+    <a href="assets/pdf/muttizettel.pdf" download><span class="k">Unter 18</span><span class="v">Muttizettel<i>PDF</i></span></a>
+    <a href="trecker-treck.html#anmeldung"><span class="k">Mitmachen</span><span class="v">Anmeldung<i>PDF</i></span></a>
+    <a href="kontakt.html#anfahrt"><span class="k">Wo genau</span><span class="v">Anfahrt<i>→</i></span></a>
+    <a href="tel:+491708036128"><span class="k">Direkt fragen</span><span class="v">Anrufen<i>☎</i></span></a>
+  </div>
+</nav>
+
+<!-- ==================== WEITERE TERMINE ==================== -->
+<section class="sec">
   <div class="wrap">
-    <div class="sec-head">
-      <p class="lbl">Saison 2026 — vier Termine</p>
-      <h2 class="d2">Termine</h2>
-    </div>
+    <div class="sec-head"><h2 class="d2">Weitere Termine</h2></div>
 
-    <!-- 90/2000er -->
-    <article class="ev rv" data-date="2026-09-12">
-      <div>
-        <p class="ev__date">12.09.</p>
-        <span class="ev__wd">Samstag</span>
-      </div>
-      <div>
-        <h3 class="ev__name">90/2000er Party</h3>
-        <p class="ev__sub">Kay van Schall &amp; FLAEK</p>
-        <p class="ev__note">21–22 Uhr: Cola Korn 1 €</p>
-      </div>
-      <dl class="spec">
-        <div><dt>Einlass</dt><dd>21:00 Uhr</dd></div>
-        <div><dt>Eintritt</dt><dd><strong>10 €</strong></dd></div>
-        <div><dt>Alter</dt><dd>Ab 16 mit <a href="muttizettel.html">Muttizettel</a></dd></div>
-        <div><dt>Ort</dt><dd>Wiesenhalle Koppelheck</dd></div>
-      </dl>
-    </article>
-
-    <!-- Blau Weiße Nacht -->
-    <article class="ev rv" data-date="2026-10-03">
-      <div>
-        <p class="ev__date">03.10.</p>
-        <span class="ev__wd">Samstag</span>
-      </div>
+    <article class="ev" data-date="2026-10-03">
+      <p class="ev__date">03.10.<span class="ev__wd">Samstag</span></p>
       <div>
         <h3 class="ev__name">Blau Weiße Nacht</h3>
         <p class="ev__sub">HOHNer Dorfmusikanten &amp; DJ MAEZ</p>
-        <p class="ev__note">Fassanstich ca. 20:30 Uhr</p>
+        <p class="ev__facts">
+          <span>Ab 20:00</span>
+          <span>Mit Tisch <b>15 €</b></span>
+          <span>VIP <b>20 €</b></span>
+          <span>Ohne Tisch <b>12 €</b></span>
+          <span>Bayrische Küche ab 19:30</span>
+          <span>Fassanstich 20:30</span>
+          <span><a href="mailto:info@wiesenhalle.de?subject=Tischreservierung%20Blau%20Wei%C3%9Fe%20Nacht">Tisch reservieren</a></span>
+        </p>
       </div>
-      <dl class="spec">
-        <div><dt>Einlass</dt><dd>20:00 Uhr</dd></div>
-        <div><dt>Küche</dt><dd>Ab 19:30 bayrische Spezialitäten, Schlachterei Bruhn</dd></div>
-        <div><dt>Eintritt</dt><dd><strong>20 €</strong> VIP mit Tisch<br><strong>15 €</strong> Standard mit Tisch<br><strong>12 €</strong> ohne Tisch</dd></div>
-        <div><dt>Tisch</dt><dd><a href="mailto:info@wiesenhalle.de?subject=Tischreservierung%20Blau%20Wei%C3%9Fe%20Nacht">info@wiesenhalle.de</a> · <a href="tel:+491708036128">0170 8036128</a></dd></div>
-      </dl>
     </article>
 
-    <!-- Saison Finale -->
-    <article class="ev rv" data-date="2026-10-10">
+    <article class="ev" data-date="2026-10-10">
+      <p class="ev__date">10.10.<span class="ev__wd">Samstag</span></p>
       <div>
-        <p class="ev__date">10.10.</p>
-        <span class="ev__wd">Samstag</span>
+        <h3 class="ev__name">Saison Finale — 360° Session</h3>
+        <p class="ev__sub">Bühne mitten in der Halle, gefeiert wird rundherum</p>
+        <p class="ev__facts">
+          <span>Ab 21:00</span>
+          <span>Über <b>8 DJs</b></span>
+          <span>Im Zelt: DJ Pflaumi &amp; Kay van Schall</span>
+        </p>
       </div>
-      <div>
-        <h3 class="ev__name">Saison Finale<br>360° Session</h3>
-        <p class="ev__sub">Bühne mitten in der Halle — gefeiert wird rundherum</p>
-        <p class="ev__note">Im Zelt: DJ Pflaumi &amp; Kay van Schall</p>
-      </div>
-      <dl class="spec">
-        <div><dt>Einlass</dt><dd>21:00 Uhr</dd></div>
-        <div><dt>Line-up</dt><dd>Über 8 DJs</dd></div>
-        <div><dt>Alter</dt><dd>Ab 16 mit <a href="muttizettel.html">Muttizettel</a></dd></div>
-        <div><dt>Ort</dt><dd>Wiesenhalle Koppelheck</dd></div>
-      </dl>
     </article>
 
-    <!-- Schlager Nacht -->
-    <article class="ev rv" data-date="2026-10-24">
-      <div>
-        <p class="ev__date">24.10.</p>
-        <span class="ev__wd">Samstag</span>
-      </div>
+    <article class="ev" data-date="2026-10-24">
+      <p class="ev__date">24.10.<span class="ev__wd">Samstag</span></p>
       <div>
         <h3 class="ev__name">Schlager Nacht</h3>
         <p class="ev__sub">Nicht bei uns — in der Birkhalle Gelting</p>
-        <p class="ev__note">Line-up folgt</p>
+        <p class="ev__facts">
+          <span>Ab 20:00</span>
+          <span>Wackerballig 4, Gelting</span>
+          <span><a href="https://www.google.com/maps/search/?api=1&query=Wackerballig+4,+24395+Gelting" target="_blank" rel="noopener">In Maps öffnen</a></span>
+        </p>
       </div>
-      <dl class="spec">
-        <div><dt>Einlass</dt><dd>20:00 Uhr</dd></div>
-        <div><dt>Ort</dt><dd>Birkhalle Gelting<br>Wackerballig 4, 24395 Gelting-Wackerballig</dd></div>
-        <div><dt>Karte</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=Wackerballig+4,+24395+Gelting" target="_blank" rel="noopener">In Maps öffnen</a></dd></div>
-      </dl>
     </article>
+
+    <p class="dim" style="margin-top:1.4rem;font-family:var(--mono);font-size:var(--sm)">
+      Für alle Partys: Einlass ab 16 Jahren mit <a href="muttizettel.html">Muttizettel</a>, ab 18 mit Ausweis.
+    </p>
   </div>
 </section>
 
 <!-- ==================== TRECKER TRECK ==================== -->
 <section class="sec">
-  <div class="wrap">
-    <div class="split">
-      <div class="stack">
-        <p class="lbl lbl--lime">Sonntag, 14. Juni 2026 — ab 10:00 Uhr</p>
-        <h2 class="d2">Trecker<br>Treck</h2>
-        <p class="big-copy">Motoren an, Ketten stramm. 2026 zum ersten Mal mit zwei Bahnen, auf denen gleichzeitig gezogen wird.</p>
-        <p class="dim">Standard, Super Standard und Oldtimer. Dazu Human Pulling, Spanferkel vom Grill und ein Rahmenprogramm für die ganze Familie.</p>
-        <div class="btn-row" style="margin-top:.8rem">
-          <a class="btn btn--lime" href="trecker-treck.html">Alles zum Trecker Treck <i>→</i></a>
-          <a class="btn btn--ghost" href="trecker-treck.html#anmeldung">Anmeldung</a>
-        </div>
-      </div>
-
-      <div class="stack">
-        <div class="figs" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-          <div class="fig fig--lime"><b>2</b><span>Bahnen gleichzeitig</span></div>
-          <div class="fig fig--lime"><b>3</b><span>Klassen</span></div>
-          <div class="fig fig--lime"><b>7 €</b><span>Eintritt</span></div>
-          <div class="fig fig--lime"><b>60 m</b><span>Human Pulling</span></div>
-        </div>
-        <div class="photo photo--treck" style="margin-top:.6rem" role="img" aria-label="Luftaufnahme des Trecker-Treck-Geländes in Koppelheck"></div>
+  <div class="wrap split">
+    <div class="stack">
+      <p class="lbl lbl--lime">Sonntag, 14. Juni 2026 — ab 10:00 Uhr</p>
+      <h2 class="d2">Trecker<br>Treck</h2>
+      <p class="big-copy">Motoren an, Ketten stramm. 2026 zum ersten Mal mit zwei Bahnen, auf denen gleichzeitig gezogen wird.</p>
+      <p class="dim">Standard, Super Standard und Oldtimer. Dazu Human Pulling, Spanferkel vom Grill und ein Rahmenprogramm für die ganze Familie. Eintritt 7 €.</p>
+      <div class="btn-row" style="margin-top:.8rem">
+        <a class="btn btn--lime" href="trecker-treck.html">Alles zum Trecker Treck <i>→</i></a>
       </div>
     </div>
+    <div class="photo photo--treck" role="img" aria-label="Luftaufnahme des Trecker-Treck-Geländes in Koppelheck"></div>
   </div>
 </section>
-
-<div class="ledbar ledbar--lime" data-leds aria-hidden="true"></div>
 
 <!-- ==================== INFOS ==================== -->
 <section class="sec" id="infos">
   <div class="wrap">
-    <div class="sec-head">
-      <p class="lbl">Das Wichtigste</p>
-      <h2 class="d2">Gut zu wissen</h2>
-    </div>
-
+    <div class="sec-head"><h2 class="d2">Gut zu wissen</h2></div>
     <div class="cols">
       <div class="col col--acc">
         <h3>Alter</h3>
-        <p class="dim">Unter 16: kein Zutritt. Mit 16 oder 17 ab 24 Uhr nur mit Muttizettel und Begleitperson vor Ort. Ab 18 reicht der Ausweis.</p>
+        <p class="dim">Unter 16 kein Zutritt. Mit 16 oder 17 ab 24 Uhr nur mit Muttizettel und Begleitperson. Ab 18 reicht der Ausweis.</p>
         <p><a href="muttizettel.html">Muttizettel laden</a></p>
       </div>
       <div class="col col--acc">
-        <h3>Am Einlass dabei</h3>
-        <p class="dim">Personalausweis. Unter 18 zusätzlich der ausgefüllte Muttizettel, der Ausweis der Begleitperson und eine <strong>Kopie des Ausweises der Eltern</strong>.</p>
+        <h3>Am Einlass</h3>
+        <p class="dim">Personalausweis. Unter 18 zusätzlich Muttizettel, Ausweis der Begleitperson und eine <strong>Kopie des Ausweises der Eltern</strong>.</p>
       </div>
       <div class="col col--acc">
-        <h3>Anfahrt &amp; Parken</h3>
-        <p class="dim">Koppelheck 29A, 24395 Niesgrau. Kostenlose Parkplätze direkt am Gelände, Behindertenparkplätze am Eingang, Stellplätze für Räder.</p>
+        <h3>Anfahrt</h3>
+        <p class="dim">Koppelheck 29A, 24395 Niesgrau. Kostenlose Parkplätze am Gelände, Behindertenparkplätze am Eingang.</p>
         <p><a href="kontakt.html#anfahrt">Karte ansehen</a></p>
       </div>
       <div class="col col--acc">
-        <h3>Tisch &amp; Fragen</h3>
-        <p class="dim">Tischreservierung für die Blau Weiße Nacht und alles andere direkt bei uns.</p>
+        <h3>Fragen</h3>
+        <p class="dim">Tischreservierung und alles andere direkt bei uns.</p>
         <p><a href="tel:+491708036128">0170 8036128</a><br><a href="mailto:info@wiesenhalle.de">info@wiesenhalle.de</a></p>
       </div>
     </div>
@@ -252,11 +187,12 @@
   <div class="wrap">
     <div class="foot__g">
       <div>
-        <a class="brand" href="index.html">Koppelheck<b>.</b></a>
-        <p class="dim" style="margin-top:.9rem;font-size:.9rem">
-          Wiesenhalle Koppelheck<br>
-          Koppelheck 29A<br>
-          24395 Niesgrau
+        <a class="brand brand--foot" href="index.html" aria-label="Startseite">
+          <img src="assets/img/logo.png" width="298" height="46" alt="Koppelheck">
+        </a>
+        <p class="dim" style="margin-top:1rem;font-size:.9rem">
+          …deine Partylocation!<br><br>
+          Koppelheck 29A<br>24395 Niesgrau
         </p>
       </div>
       <div>

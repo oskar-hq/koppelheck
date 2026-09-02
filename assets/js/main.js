@@ -29,17 +29,16 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
   }
 
-  /* --- LED-Leiste am linken Rand ---------------------------------------- */
-  var rail = document.querySelector('.rail__fill');
-  if (rail) {
-    var railUpdate = function () {
-      var doc = document.documentElement;
-      var max = doc.scrollHeight - window.innerHeight;
-      rail.style.height = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+  /* --- Scroll-Fortschritt oben (die LED-Leiste) -------------------------- */
+  var prog = document.querySelector('.prog');
+  if (prog) {
+    var progUpdate = function () {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      prog.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
     };
-    railUpdate();
-    window.addEventListener('scroll', railUpdate, { passive: true });
-    window.addEventListener('resize', railUpdate);
+    progUpdate();
+    window.addEventListener('scroll', progUpdate, { passive: true });
+    window.addEventListener('resize', progUpdate);
   }
 
   /* --- LED-Bars als Sektionstrenner ------------------------------------- */
@@ -83,7 +82,7 @@
     var end = new Date(cd.getAttribute('data-countdown')).getTime();
     var slot = {
       d: cd.querySelector('[data-cd="d"]'), h: cd.querySelector('[data-cd="h"]'),
-      m: cd.querySelector('[data-cd="m"]'), s: cd.querySelector('[data-cd="s"]')
+      m: cd.querySelector('[data-cd="m"]')
     };
     var pad = function (n) { return String(n).padStart(2, '0'); };
     var timer;
@@ -98,7 +97,6 @@
       if (slot.d) slot.d.textContent = Math.floor(s / 86400);
       if (slot.h) slot.h.textContent = pad(Math.floor(s / 3600) % 24);
       if (slot.m) slot.m.textContent = pad(Math.floor(s / 60) % 60);
-      if (slot.s) slot.s.textContent = pad(s % 60);
     };
     tick();
     timer = setInterval(tick, 1000);

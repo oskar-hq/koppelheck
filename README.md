@@ -11,22 +11,32 @@ Tagesveranstaltung ein eigenes Grün.
 
 ---
 
+## Aufbau der Startseite
+
+```
+Hero          Original-Logo + Slogan "…deine Partylocation!", Scheinwerfer dahinter
+Nächster      Die einzige Magenta-Fläche der Seite: Datum, Name, Eckdaten, Countdown
+Schnellzugriff Termine · Muttizettel · Anmeldung · Anfahrt · Anrufen
+Weitere       Die drei folgenden Termine als leichte Liste
+Trecker Treck Kurzfassung mit Foto, Rest auf eigener Seite
+Gut zu wissen Alter, Einlass, Anfahrt, Kontakt
+```
+
+Eine Signalfarbe pro Seite: Magenta auf der Startseite, Grün auf der
+Trecker-Treck-Seite. Genau eine farbige Fläche, alles andere schwarz.
+
 ## Die zwei Bewegungen
 
 **Scheinwerfer-Traverse (three.js).** Oben auf der Startseite hängen Movingheads
 unter einer Traverse und leuchten im 45°-Winkel auf den Boden. Scrollt man nach
 unten, fahren sie auf 90° hoch und zeigen nach vorne — der Lichtkegel
-verschwindet, übrig bleibt die leuchtende LED. Gesteuert wird das rein über die
-Scrollposition. Ohne WebGL, bei abgeschalteten Animationen (`prefers-reduced-motion`)
-oder wenn die Bibliothek nicht lädt, zeigt die Seite eine Traverse aus reinem CSS
-und funktioniert vollständig.
+verschwindet, übrig bleibt die leuchtende LED. Ohne WebGL, bei abgeschalteten
+Animationen oder wenn die Bibliothek nicht lädt, zeigt die Seite eine Traverse
+aus reinem CSS und funktioniert vollständig.
 
-**LED-Leiste.** Am linken Rand läuft eine Diodenleiste durch die ganze Seite und
-füllt sich mit dem Scrollfortschritt. Zwischen den Sektionen sitzen waagerechte
-LED-Bars, die beim Hereinscrollen von links nach rechts zünden. Beide werden per
-JavaScript aus einzelnen Segmenten aufgebaut, damit das Markup lesbar bleibt.
-
----
+**LED.** Eine 3 px hohe Leiste am oberen Rand füllt sich mit dem
+Scrollfortschritt. Dazu genau ein LED-Trenner pro Seite, der beim
+Hereinscrollen von links nach rechts zündet.
 
 ## Was aufgeräumt wurde
 

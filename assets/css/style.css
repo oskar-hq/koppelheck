@@ -24,7 +24,7 @@
   --body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Typo-Skala — große Sprünge statt gleichmäßiger Abstufung */
-  --d1: clamp(3.4rem, 13vw, 12rem);
+  --d1: clamp(2.8rem, 10.5vw, 8.5rem);
   --d2: clamp(2.4rem, 7.5vw, 6.5rem);
   --d3: clamp(1.7rem, 3.6vw, 3rem);
   --d4: clamp(1.25rem, 2vw, 1.6rem);
@@ -33,7 +33,6 @@
 
   --wrap: 1560px;
   --gutter: clamp(1.1rem, 3.4vw, 3rem);
-  --rail: 46px;               /* Breite der LED-Leiste am linken Rand */
   --nav-h: 62px;
 
   --ease: cubic-bezier(.16, 1, .3, 1);
@@ -119,16 +118,15 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
 /* --- Layout -------------------------------------------------------------- */
 .wrap {
   width: 100%; max-width: var(--wrap); margin-inline: auto;
-  padding-left: max(var(--gutter), var(--rail));
-  padding-right: var(--gutter);
+  padding-inline: var(--gutter);
 }
 .wrap--tight { max-width: 900px; }
 
-.sec { padding-block: clamp(4rem, 9vw, 9rem); position: relative; }
+.sec { padding-block: clamp(3rem, 6vw, 6rem); position: relative; }
 .sec--sm { padding-block: clamp(2.5rem, 5vw, 5rem); }
 
 /* Kopfzeile einer Sektion: Label links, Titel groß darunter */
-.sec-head { display: grid; gap: .9rem; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+.sec-head { display: grid; gap: .9rem; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
 .sec-head p { max-width: 46ch; }
 
 .rule { height: 1px; background: var(--line); border: 0; }
@@ -158,39 +156,12 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
 .btn i { font-style: normal; transition: transform .18s var(--ease); }
 .btn:hover i { transform: translateX(3px); }
 
-/* --- LED-Leiste am linken Rand (läuft durch die ganze Seite) ------------- */
-.rail {
-  position: fixed; left: 0; top: 0; bottom: 0; width: var(--rail);
-  z-index: 60; pointer-events: none;
-  display: grid; align-content: stretch; justify-items: center;
-  padding-block: calc(var(--nav-h) + 14px) 14px;
-  border-right: 1px solid var(--line);
-  background: var(--black);
+/* --- Scroll-Fortschritt: die LED-Leiste, aber ohne Platz zu kosten -------- */
+.prog {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0;
+  background: var(--acc); box-shadow: 0 0 10px rgba(255, 46, 204, .8);
+  z-index: 110; transition: width .08s linear;
 }
-.rail__track {
-  position: relative; width: 5px; height: 100%;
-  background: rgba(242, 239, 232, .10);
-}
-.rail__fill {
-  position: absolute; inset: 0 0 auto 0; height: 0;
-  background: var(--acc);
-  box-shadow: 0 0 12px var(--acc);
-  transition: height .1s linear;
-}
-/* LED-Segmente: die Leiste wird optisch in Dioden zerlegt */
-.rail__seg {
-  position: absolute; inset: 0;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0 9px,
-    var(--black) 9px 12px
-  );
-}
-.rail__cap {
-  font-family: var(--mono); font-size: 9px; letter-spacing: .2em;
-  color: var(--mute); writing-mode: vertical-rl; text-transform: uppercase;
-}
-@media (max-width: 900px) { .rail { display: none; } }
 
 /* --- LED-Bar als Trenner zwischen Sektionen ----------------------------- */
 .ledbar {
@@ -218,11 +189,13 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
 .nav.is-stuck { background: rgba(10, 10, 11, .94); border-bottom-color: var(--line); }
 .nav__in {
   width: 100%; max-width: var(--wrap); margin-inline: auto;
-  padding-left: max(var(--gutter), var(--rail)); padding-right: var(--gutter);
+  padding-inline: var(--gutter);
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
-.brand { font-family: var(--display); font-size: 1.3rem; letter-spacing: -.02em; text-transform: uppercase; }
-.brand b { color: var(--acc); font-weight: 400; }
+/* Original-Logo. Schwarz auf transparent -> für dunklen Grund invertiert. */
+.brand { display: block; line-height: 0; }
+.brand img { width: clamp(104px, 13vw, 142px); height: auto; filter: invert(1); }
+.brand--foot img { width: 150px; }
 
 .menu { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 2.4rem); }
 .menu a {
@@ -264,9 +237,9 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
 /* --- Hero ---------------------------------------------------------------- */
 .hero {
   position: relative; min-height: 100svh;
-  display: grid; grid-template-rows: 1fr auto;
-  padding-top: calc(var(--nav-h) + clamp(3rem, 10vw, 9rem));
-  padding-bottom: 0;
+  display: grid; align-items: center;
+  padding-top: calc(var(--nav-h) + 2rem);
+  padding-bottom: 2rem;
   isolation: isolate;
 }
 /* three.js-Bühne — liegt fest hinter dem Inhalt */
@@ -288,25 +261,12 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
 }
 .rig-on .truss { display: none; }
 
-.hero__words { display: grid; gap: 0; align-content: center; }
-.hero__words span {
-  display: block; font-family: var(--display); font-size: var(--d1);
-  line-height: .8; letter-spacing: -.03em; text-transform: uppercase;
+.hero__in { display: grid; gap: 1.4rem; align-content: center; }
+.hero__slogan {
+  font-family: var(--display); font-size: var(--d1);
+  line-height: .86; letter-spacing: -.03em; text-transform: none;
 }
-.hero__words span:nth-child(2) { padding-left: 7vw; color: var(--acc); }
-.hero__words span:nth-child(3) { padding-left: 30vw; }
-@media (max-width: 700px) {
-  .hero__words span:nth-child(2) { padding-left: 0; }
-  .hero__words span:nth-child(3) { padding-left: 14vw; }
-}
-
-/* Streifen am unteren Hero-Rand: nächster Termin + Countdown */
-.hero__bar {
-  border-top: 1px solid var(--line);
-  display: grid; grid-template-columns: 1fr auto; gap: 1.5rem 2rem;
-  align-items: end; padding-block: 1.2rem 1.6rem;
-}
-@media (max-width: 820px) { .hero__bar { grid-template-columns: 1fr; } }
+.hero__slogan span { color: var(--acc); }
 
 .cd { display: flex; gap: clamp(.8rem, 2vw, 2rem); }
 .cd div { text-align: left; }
@@ -314,7 +274,7 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
   display: block; font-family: var(--display); font-size: clamp(1.9rem, 4.4vw, 3.4rem);
   line-height: .9; font-weight: 400; font-variant-numeric: tabular-nums;
 }
-.cd small { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; color: var(--mute); text-transform: uppercase; }
+.cd small { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; color: rgba(18,0,14,.6); text-transform: uppercase; }
 
 /* --- Spec-Liste (ersetzt die Emoji-Listen) ------------------------------ */
 .spec { display: grid; gap: 0; }
@@ -335,33 +295,37 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
 .band { background: var(--acc); color: var(--acc-ink); }
 .band .lbl { color: rgba(18, 0, 14, .6); }
 .band .rule { background: rgba(18, 0, 14, .28); }
-.band .spec > div { border-color: rgba(18, 0, 14, .22); }
-.band .spec dt { color: rgba(18, 0, 14, .58); }
 .band a:not(.btn) { border-bottom-color: var(--acc-ink); }
 .band a:not(.btn):hover { background: var(--acc-ink); color: var(--acc); }
 
 /* Termin-Zeile */
 .ev {
   display: grid;
-  grid-template-columns: minmax(0, 22%) minmax(0, 1fr) minmax(0, 34%);
-  gap: clamp(1rem, 3vw, 3rem);
-  padding-block: clamp(1.6rem, 3vw, 2.6rem);
-  border-top: 2px solid var(--acc-ink);
+  grid-template-columns: minmax(0, 20%) minmax(0, 1fr);
+  gap: clamp(.8rem, 3vw, 2.5rem);
+  padding-block: clamp(1.5rem, 2.6vw, 2.2rem);
+  border-top: 1px solid var(--line);
   align-items: start;
 }
-.ev:last-of-type { border-bottom: 2px solid var(--acc-ink); }
-.ev__date { font-family: var(--display); font-size: clamp(2.2rem, 5.4vw, 4.6rem); line-height: .82; letter-spacing: -.03em; }
-.ev__wd { display: block; font-family: var(--mono); font-size: var(--sm); letter-spacing: .14em; color: rgba(18, 0, 14, .6); margin-top: .5rem; }
-.ev__name { font-size: clamp(1.5rem, 3vw, 2.6rem); }
-.ev__sub { margin-top: .5rem; font-weight: 500; }
-.ev__note {
-  display: inline-block; margin-top: .8rem; padding: .3rem .6rem;
-  background: var(--acc-ink); color: var(--acc);
-  font-family: var(--mono); font-size: var(--sm); letter-spacing: .08em; text-transform: uppercase;
+.ev:last-of-type { border-bottom: 1px solid var(--line); }
+.ev__date { font-family: var(--display); font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: .85; letter-spacing: -.03em; }
+.ev__wd { display: block; font-family: var(--mono); font-size: var(--sm); letter-spacing: .12em; color: var(--mute); margin-top: .45rem; }
+.ev__name { font-size: clamp(1.4rem, 2.6vw, 2.2rem); }
+.ev__sub { margin-top: .4rem; color: var(--dim); }
+
+/* Eckdaten: umbrechende Zeile mit dünnen Trennern — keine Tabellenrahmen */
+.ev__facts {
+  display: flex; flex-wrap: wrap; gap: .35rem 1rem; margin-top: .9rem;
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .03em;
+  color: var(--dim);
 }
-@media (max-width: 900px) {
-  .ev { grid-template-columns: 1fr; gap: 1rem; }
-  .ev__date { font-size: clamp(2.6rem, 13vw, 4rem); }
+.ev__facts span { display: inline-flex; align-items: center; gap: 1rem; }
+.ev__facts span:not(:last-child)::after { content: ''; width: 1px; height: 11px; background: var(--line-hard); }
+.ev__facts b { color: var(--bone); font-weight: 600; }
+
+@media (max-width: 700px) {
+  .ev { grid-template-columns: 1fr; gap: .55rem; }
+  .ev__wd { display: inline; margin-left: .7rem; }
 }
 
 /* --- Info-Spalten -------------------------------------------------------- */
@@ -590,3 +554,26 @@ p a:not(.btn):hover { background: var(--acc); color: var(--acc-ink); }
   .brand { padding-block: .55rem; }
   .burger { width: 46px; height: 46px; }
 }
+
+/* --- Nächster Termin: die eine Signalfläche der Seite -------------------- */
+.next {
+  background: var(--acc); color: var(--acc-ink);
+  padding-block: clamp(1.8rem, 4vw, 2.8rem);
+}
+.next__in {
+  display: grid; gap: clamp(1.2rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr) auto; align-items: end;
+}
+.next .lbl { color: rgba(18, 0, 14, .6); }
+.next__date { font-family: var(--mono); font-weight: 700; letter-spacing: .1em; margin-top: .9rem; }
+.next__name { font-size: clamp(1.9rem, 5.5vw, 4rem); line-height: .88; margin-top: .4rem; }
+.next__facts {
+  display: flex; flex-wrap: wrap; gap: .3rem .9rem; margin-top: .9rem;
+  font-family: var(--mono); font-size: var(--sm); color: rgba(18, 0, 14, .78);
+}
+.next__facts span { display: inline-flex; align-items: center; gap: .9rem; }
+.next__facts span:not(:last-child)::after { content: ''; width: 1px; height: 11px; background: rgba(18, 0, 14, .35); }
+@media (max-width: 820px) { .next__in { grid-template-columns: 1fr; align-items: start; } }
+
+/* Schnellzugriff sitzt direkt unter dem Termin-Band */
+.quick-wrap { padding-block: clamp(1.6rem, 3.5vw, 2.6rem); }
