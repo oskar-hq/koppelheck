@@ -96,6 +96,10 @@ Keine Build-Schritte: `index.html` im Browser öffnen genügt.
 4. **Kontaktformular anbinden** — läuft derzeit über einen `mailto:`-Fallback.
    Für echten Versand einen Formular-Dienst in `assets/js/main.js` eintragen.
 5. **Datenschutzerklärung** — bestehende Fassung übernehmen und prüfen lassen.
+
+Die Koordinaten der Halle (54.749462, 9.838642) stecken an drei Stellen:
+in der eingebetteten Karte, in den Links zu Google Maps und Apple Karten
+(beide in `kontakt.html`) und in den strukturierten Daten in `index.html`.
 6. Optional: Google Fonts und three.js lokal ausliefern, dann geht keine
    Verbindung mehr an externe Server.
 
