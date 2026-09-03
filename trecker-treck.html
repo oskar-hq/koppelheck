@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Trecker Treck 2026 — Wiesenhalle Koppelheck</title>
 <meta name="description" content="Trecker Treck am 14. Juni 2026 in Koppelheck: zwei Bahnen, Klassen, Human Pulling, Rahmenprogramm und Anmeldung.">
-<meta name="theme-color" content="#0A0A0B">
+<meta name="theme-color" content="#111116">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Trecker Treck 2026 — Wiesenhalle Koppelheck">
 <meta property="og:description" content="Trecker Treck am 14. Juni 2026 in Koppelheck: zwei Bahnen, Klassen, Human Pulling, Rahmenprogramm und Anmeldung.">
@@ -14,11 +14,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230A0A0B'/><rect x='16' y='16' width='68' height='68' fill='%23FF2ECC'/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23111116'/><rect x='16' y='16' width='68' height='68' fill='%23E4609F'/></svg>">
 </head>
-<body>
+<body class="page--treck">
 <a class="skip" href="#main">Zum Inhalt</a>
-<div class="prog" aria-hidden="true"></div>
 
 <header class="nav">
   <div class="nav__in">
@@ -43,27 +42,38 @@
 <section class="phead">
   <div class="wrap">
     <p class="crumb"><a href="index.html">Start</a> / Trecker Treck</p>
-    <p class="lbl lbl--lime">Sonntag, 14. Juni 2026 — ab 10:00 Uhr</p>
-    <h1 class="d1" style="margin-top:1rem">Trecker<br>Treck</h1>
-    <p class="big-copy" style="max-width:34ch;margin-top:1.6rem">
+    <p class="lbl">Sonntag, 14. Juni 2026 — ab 10:00 Uhr</p>
+    <h1 class="d1" style="margin-top:1rem">Trecker Treck</h1>
+    <p class="big-copy" style="max-width:36ch;margin-top:1.4rem">
       Motoren an, Ketten stramm. 2026 mit zwei brandneuen Bahnen, auf denen
       gleichzeitig gezogen wird.
     </p>
+    <div class="btn-row" style="margin-top:1.8rem">
+      <a class="btn" href="#anmeldung">Zur Anmeldung <i>&darr;</i></a>
+    </div>
     <div class="photo photo--treck" style="margin-top:2.2rem" role="img"
          aria-label="Luftaufnahme des Trecker-Treck-Geländes mit beiden Bahnen"></div>
   </div>
 </section>
 
-<div class="ledbar ledbar--lime" data-leds aria-hidden="true"></div>
+<!-- Sprungnavigation: zeigt auf einen Blick, was auf der Seite steht -->
+<nav class="pagenav" aria-label="Auf dieser Seite">
+  <div class="wrap">
+    <a href="#klassen">Klassen</a>
+    <a href="#human-pulling">Human Pulling</a>
+    <a href="#programm">Rund um die Bahn</a>
+    <a href="#anmeldung">Anmeldung</a>
+  </div>
+</nav>
 
 <!-- ===== Eckdaten ===== -->
 <section class="sec sec--sm">
   <div class="wrap">
     <div class="figs">
-      <div class="fig fig--lime"><b>10:00</b><span>Start Wettkampf</span></div>
-      <div class="fig fig--lime"><b>2</b><span>Bahnen gleichzeitig</span></div>
-      <div class="fig fig--lime"><b>7 €</b><span>Eintritt pro Person</span></div>
-      <div class="fig fig--lime"><b>13:00</b><span>Human Pulling</span></div>
+      <div class="fig"><b>10:00</b><span>Start Wettkampf</span></div>
+      <div class="fig"><b>2</b><span>Bahnen gleichzeitig</span></div>
+      <div class="fig"><b>7 €</b><span>Eintritt pro Person</span></div>
+      <div class="fig"><b>13:00</b><span>Human Pulling</span></div>
     </div>
   </div>
 </section>
@@ -72,15 +82,15 @@
 <section class="sec" id="klassen">
   <div class="wrap">
     <div class="sec-head">
-      <h2 class="d2">In welcher<br>Klasse startest du?</h2>
+      <h2 class="d2">In welcher Klasse startest du?</h2>
       <p class="dim">Gefahren wird in Standard, Sport und Oldie — mit dem Bremswagen-Team Pohl.
       Dazu der Wittbeker Bremswagen vom Team Holger Pinn, bekannt aus der norddeutschen
       Meisterschaft. Zurück an den Start zieht wie immer das Team Tüxen.</p>
     </div>
 
     <div class="cols">
-      <div class="col col--lime" id="standard">
-        <h3>Standard<br>Schlepper Klasse</h3>
+      <div class="col" id="standard">
+        <h3>Standard Schlepper Klasse</h3>
         <p class="dim">Sportschlepper sind nicht zugelassen.</p>
         <div class="chips">
           <span class="chip">2,5 t</span><span class="chip">3,5 t</span><span class="chip">4,5 t</span>
@@ -90,8 +100,8 @@
         </div>
       </div>
 
-      <div class="col col--lime" id="super-standard">
-        <h3>Super Standard<br>Klasse</h3>
+      <div class="col" id="super-standard">
+        <h3>Super Standard Klasse</h3>
         <p class="dim">Offen für alle, wenn die technische Sicherheit stimmt: Kupplungsschutz,
         Turboladerschutz und Zylinderkopfsicherung durch zwei Stahlseile.</p>
         <div class="chips">
@@ -100,8 +110,8 @@
         </div>
       </div>
 
-      <div class="col col--lime" id="oldtimer">
-        <h3>Oldtimer<br>Klasse</h3>
+      <div class="col" id="oldtimer">
+        <h3>Oldtimer Klasse</h3>
         <p class="dim">Eingeteilt nach PS — bis hin zur offenen Klasse.</p>
         <div class="chips">
           <span class="chip">0–14</span><span class="chip">15–18</span><span class="chip">19–25</span>
@@ -112,9 +122,12 @@
       </div>
     </div>
 
-    <p class="dim" style="margin-top:2rem;font-family:var(--mono);font-size:var(--sm);letter-spacing:.1em;text-transform:uppercase">
-      Wettkampfbedingungen stehen auf dem jeweiligen Anmeldeformular.
+    <p class="dim" style="margin-top:2rem">
+      Die Wettkampfbedingungen stehen auf dem jeweiligen Anmeldeformular.
     </p>
+    <div class="btn-row" style="margin-top:1.2rem">
+      <a class="btn" href="#anmeldung">Zur Anmeldung <i>&darr;</i></a>
+    </div>
   </div>
 </section>
 
@@ -123,13 +136,13 @@
   <div class="wrap">
     <div class="split">
       <div class="stack">
-        <p class="lbl lbl--lime">Ca. 13:00 Uhr</p>
-        <h2 class="d2">Human<br>Pulling</h2>
+        <p class="lbl">Ca. 13:00 Uhr</p>
+        <h2 class="d2">Human Pulling</h2>
         <p class="big-copy">Wer schafft es mit 12 Personen auf 60 Metern, den Bremswagen über die Ziellinie zu ziehen?</p>
         <p>Das Gewinner-Team bekommt <strong>12 Freikarten für das Koppelheck Open Air 2026</strong>.
         Organisiert vom Team Wiesenhalle.</p>
         <div class="btn-row" style="margin-top:.6rem">
-          <a class="btn btn--lime" href="assets/pdf/anmeldung-human-pulling.pdf" download>Anmeldung laden <i>↓</i></a>
+          <a class="btn" href="#anmeldung">Zur Anmeldung <i>&darr;</i></a>
         </div>
       </div>
 
@@ -151,11 +164,11 @@
 <section class="sec" id="programm">
   <div class="wrap">
     <div class="sec-head">
-      <h2 class="d2">Rund um<br>die Bahn</h2>
+      <h2 class="d2">Rund um die Bahn</h2>
     </div>
 
     <div class="cols">
-      <div class="col col--lime">
+      <div class="col">
         <h3>Programm</h3>
         <dl class="spec">
           <div><dt>Kinder</dt><dd>Quadbahn, Hüpfburg &amp; Kinderschminken</dd></div>
@@ -163,7 +176,7 @@
           <div><dt>Glück</dt><dd>Losbude</dd></div>
         </dl>
       </div>
-      <div class="col col--lime">
+      <div class="col">
         <h3>Essen</h3>
         <dl class="spec">
           <div><dt>Ab 12:00</dt><dd>Spanferkel von der Landschlachterei Bruhn, Niesgrau</dd></div>
@@ -171,7 +184,7 @@
           <div><dt>Süß</dt><dd>Crêpes, Eisstand, Kaffee &amp; Kuchen</dd></div>
         </dl>
       </div>
-      <div class="col col--lime">
+      <div class="col">
         <h3>Parken</h3>
         <dl class="spec">
           <div><dt>Auto</dt><dd>Kostenlose Parkplätze direkt am Gelände</dd></div>
@@ -184,14 +197,58 @@
 </section>
 
 
-<!-- ===== Anmeldung ===== -->
+<!-- ===== Anmeldung — die einzige Stelle der Seite, an der man sich anmeldet ===== -->
 <section class="sec" id="anmeldung">
   <div class="wrap">
+    <div class="sec-head">
+      <p class="lbl">Mitmachen</p>
+      <h2 class="d2">Anmeldung</h2>
+      <p>Für jede Klasse gibt es ein Formular — auch für Human Pulling. Herunterladen,
+      ausfüllen und am Veranstaltungstag ab 09:00 Uhr am Infostand abgeben.</p>
+    </div>
+
     <div class="split">
       <div class="stack">
-        <p class="lbl lbl--lime">Anmeldung &amp; Ablauf</p>
-        <h2 class="d2">So bist<br>du dabei</h2>
-        <dl class="spec" style="margin-top:.6rem">
+        <p class="lbl">Formulare</p>
+        <!-- Original-PDFs unter assets/pdf/ ersetzen, Dateinamen beibehalten -->
+        <a class="dl" href="assets/pdf/anmeldung-super-standard-klasse.pdf" download>
+          <span class="dl__n">Super Standard Klasse</span>
+          <span class="dl__t">PDF</span>
+          <span class="dl__a">Laden <i style="font-style:normal">&darr;</i></span>
+        </a>
+        <a class="dl" href="assets/pdf/anmeldung-human-pulling.pdf" download>
+          <span class="dl__n">Human Pulling</span>
+          <span class="dl__t">PDF</span>
+          <span class="dl__a">Laden <i style="font-style:normal">&darr;</i></span>
+        </a>
+        <span class="dl dl--soon">
+          <span class="dl__n">Standard Klasse</span>
+          <span class="dl__t">In Vorbereitung</span>
+          <span class="dl__a">Folgt</span>
+        </span>
+        <span class="dl dl--soon">
+          <span class="dl__n">Oldtimer Klasse</span>
+          <span class="dl__t">In Vorbereitung</span>
+          <span class="dl__a">Folgt</span>
+        </span>
+
+        <p class="dim" style="margin-top:1.2rem">Formular für Standard oder Oldtimer noch nicht da?
+          Ruf durch: <a href="tel:+491708036128">0170 8036128</a> oder schreib an
+          <a href="mailto:info@wiesenhalle.de">info@wiesenhalle.de</a>
+        </p>
+      </div>
+
+      <div class="stack">
+        <p class="lbl">Was du wissen musst</p>
+        <dl class="spec">
+          <div><dt>Startgeld</dt><dd>Bei Abgabe des Anmeldebogens zu entrichten.</dd></div>
+          <div><dt>Pflicht</dt><dd>Haftpflichtversicherung für das ziehende Fahrzeug.</dd></div>
+          <div><dt>Bedingungen</dt><dd>Stehen auf der Rückseite des Anmeldebogens.</dd></div>
+          <div><dt>Human Pulling</dt><dd>Keine Startgebühr — durch den Eintritt abgedeckt.</dd></div>
+        </dl>
+
+        <p class="lbl" style="margin-top:1.6rem">Ablauf am Veranstaltungstag</p>
+        <dl class="spec">
           <div><dt>09:00</dt><dd>Infostand und Startnummern am Moderationstruck</dd></div>
           <div><dt>10:00</dt><dd>Start Trecker Treck auf beiden Bahnen</dd></div>
           <div><dt>12:00</dt><dd>Spanferkel und Foodtruck öffnen</dd></div>
@@ -199,34 +256,6 @@
         </dl>
         <p class="dim">Der genaue Ablaufplan folgt in Kürze. Moderiert wird wieder von
         <strong>Matz-Ole Paasch</strong> und <strong>Oliver Groß</strong> vom DJ-Team Koppelheck.</p>
-      </div>
-
-      <div class="stack">
-        <p class="lbl lbl--dim">Anmeldeformulare</p>
-        <!-- Original-PDFs unter assets/pdf/ ersetzen, Dateinamen beibehalten -->
-        <a class="dl" href="assets/pdf/anmeldung-super-standard-klasse.pdf" download>
-          <span class="dl__t">PDF</span><span class="dl__n">Super Standard Klasse</span><span class="dl__a">↓</span>
-        </a>
-        <a class="dl" href="assets/pdf/anmeldung-human-pulling.pdf" download>
-          <span class="dl__t">PDF</span><span class="dl__n">Human Pulling</span><span class="dl__a">↓</span>
-        </a>
-        <span class="dl dl--soon">
-          <span class="dl__t">Bald</span><span class="dl__n">Standard Klasse</span><span class="dl__a">–</span>
-        </span>
-        <span class="dl dl--soon">
-          <span class="dl__t">Bald</span><span class="dl__n">Oldtimer Klasse</span><span class="dl__a">–</span>
-        </span>
-
-        <dl class="spec" style="margin-top:1.6rem">
-          <div><dt>Startgeld</dt><dd>Bei Abgabe des Anmeldebogens zu entrichten.</dd></div>
-          <div><dt>Pflicht</dt><dd>Haftpflichtversicherung für das ziehende Fahrzeug.</dd></div>
-          <div><dt>Bedingungen</dt><dd>Stehen auf der Rückseite des Anmeldebogens.</dd></div>
-        </dl>
-
-        <p class="dim" style="margin-top:1rem">Formular für Standard und Oldtimer noch nicht da?
-          Ruf durch: <a href="tel:+491708036128">0170 8036128</a> oder
-          <a href="mailto:info@wiesenhalle.de">info@wiesenhalle.de</a>
-        </p>
       </div>
     </div>
   </div>

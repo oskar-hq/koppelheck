@@ -1,6 +1,9 @@
 /* ==========================================================================
    Scheinwerfer-Traverse (three.js)
 
+   Bewusst leise gehalten: wenige Scheinwerfer, schwache Kegel. Der Hero soll
+   Atmosphäre haben, nicht mit der Überschrift um Aufmerksamkeit kämpfen.
+
    Beim Laden hängen die Movingheads unter der Traverse und leuchten im 45°-
    Winkel auf den Boden. Scrollt man nach unten, fahren sie auf 90° hoch und
    zeigen nach vorne — der Lichtkegel verschwindet, übrig bleibt die LED.
@@ -25,7 +28,7 @@
   } catch (e) { return; }
 
   var small = window.innerWidth < 760;
-  var COUNT = small ? 5 : 9;          // Anzahl Scheinwerfer
+  var COUNT = small ? 3 : 6;          // Anzahl Scheinwerfer — bewusst wenige
   var SPAN  = 54;                     // Traverse bewusst breiter als jedes Fenster
   var TRUSS_Y = 5.6, TRUSS_Z = -6.0;  // Position der Traverse
   var HEAD_Y  = TRUSS_Y - 0.75;
@@ -114,8 +117,8 @@
   var beamGeo = new THREE.CylinderGeometry(0.09, 1.45, BEAM_LEN, 22, 1, true);
   beamGeo.translate(0, -BEAM_LEN / 2, 0);   // Spitze in den Ursprung
 
-  var MAGENTA = new THREE.Color(0xff2ecc);
-  var BONE    = new THREE.Color(0xf2efe8);
+  var MAGENTA = new THREE.Color(0xe4609f);
+  var BONE    = new THREE.Color(0xe6e3dd);
 
   var heads = [];
   for (var i = 0; i < COUNT; i++) {
@@ -132,7 +135,7 @@
     var beam = new THREE.Mesh(beamGeo, new THREE.ShaderMaterial({
       uniforms: {
         uColor:   { value: color },
-        uOpacity: { value: 0.34 },
+        uOpacity: { value: 0.15 },
         uLen:     { value: BEAM_LEN }
       },
       vertexShader: beamVert,
@@ -151,7 +154,7 @@
       blending: THREE.AdditiveBlending, depthWrite: false
     }));
     lens.position.y = -0.36;
-    lens.scale.setScalar(0.9);
+    lens.scale.setScalar(0.7);
     pivot.add(lens);
 
     // Aufhängung an der Traverse
@@ -209,12 +212,12 @@
       h.pivot.rotation.z = Math.sin(time * 0.32 + h.phase * 1.7) * 0.13 * (1 - progress);
 
       // Kegel verschwindet, LED wird kräftiger
-      h.beam.material.uniforms.uOpacity.value = 0.34 * Math.pow(1 - progress, 1.7);
-      h.lens.scale.setScalar(0.9 + progress * 1.5);
-      h.lens.material.opacity = 0.55 + progress * 0.45;
+      h.beam.material.uniforms.uOpacity.value = 0.15 * Math.pow(1 - progress, 1.7);
+      h.lens.scale.setScalar(0.7 + progress * 1.0);
+      h.lens.material.opacity = 0.4 + progress * 0.35;
     }
 
-    camera.position.x = Math.sin(time * 0.15) * 0.25;
+    camera.position.x = Math.sin(time * 0.12) * 0.15;
     camera.lookAt(0, 1.2 + progress * 0.6, 0);
 
     renderer.render(scene, camera);

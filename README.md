@@ -3,15 +3,29 @@
 Ein Neuentwurf der Website für die **Wiesenhalle Koppelheck** in Niesgrau —
 eigenständig, ohne Baukasten, ohne Framework.
 
-**Gestalterische Linie:** schwarz, eine einzige Signalfarbe, harte Kanten, große
-Typo bis an den Rand. Keine Verläufe, keine Weichzeichner, keine runden Ecken —
-das sind die Merkmale, an denen Standard-Layouts sofort erkennbar sind. Die
-Signalfarbe ist das Magenta vom Original-Flyer. Der Trecker Treck bekommt als
-Tagesveranstaltung ein eigenes Grün.
+**Gestalterische Linie:** ruhiger dunkler Grund, eine Signalfarbe pro Seite,
+harte Kanten, große Typo. Keine Verläufe, kein Glow, keine runden Ecken.
+
+Dahinter stehen drei Regeln, an die sich jede Seite hält:
+
+1. **Farbe heißt klickbar.** Die Signalfarbe erscheint nur auf Buttons, Links
+   und der aktiven Navigation. Alles andere ist Grauwert. Wer Farbe sieht,
+   weiß: da geht was.
+2. **Eine Signalfarbe pro Seite.** Sie steckt in `--acc` und wird über eine
+   Klasse am `<body>` getauscht — Magenta überall, Grün auf der
+   Trecker-Treck-Seite. Nie beide gleichzeitig.
+3. **Hierarchie über Größe und Luft**, nicht über Effekte. Pro Abschnitt gibt
+   es genau eine Sache, die laut ist.
+
+Das Magenta stammt vom Original-Flyer, ist gegenüber dem ersten Entwurf aber
+entsättigt (`#E4609F` statt `#FF2ECC`) und der Grund ist kein reines Schwarz
+mehr (`#111116`) — das Paar knallte vorher so hart, dass das Auge keinen
+Halt fand.
 
 Als Überschriftenschrift läuft **Archivo Black** — sie kommt dem
-Original-Logo am nächsten. Für Labels und Zahlen **Space Mono**, für Fließtext
-**Inter**.
+Original-Logo am nächsten und bleibt den beiden großen Ebenen `h1`/`h2`
+vorbehalten. Ab `h3` läuft **Inter**, sonst schreit jede Ebene gleich laut.
+Für Labels und Zahlen **Space Mono**.
 
 ---
 
@@ -26,21 +40,19 @@ Trecker Treck Kurzfassung mit Foto, Rest auf eigener Seite
 Gut zu wissen Alter, Einlass, Anfahrt, Kontakt
 ```
 
-Eine Signalfarbe pro Seite: Magenta auf der Startseite, Grün auf der
-Trecker-Treck-Seite. Genau eine farbige Fläche, alles andere schwarz.
-
-## Die zwei Bewegungen
+## Die eine Bewegung
 
 **Scheinwerfer-Traverse (three.js).** Oben auf der Startseite hängen Movingheads
 unter einer Traverse und leuchten im 45°-Winkel auf den Boden. Scrollt man nach
 unten, fahren sie auf 90° hoch und zeigen nach vorne — der Lichtkegel
-verschwindet, übrig bleibt die leuchtende LED. Ohne WebGL, bei abgeschalteten
-Animationen oder wenn die Bibliothek nicht lädt, zeigt die Seite eine Traverse
-aus reinem CSS und funktioniert vollständig.
+verschwindet, übrig bleibt die leuchtende LED. Bewusst leise gehalten: sechs
+Scheinwerfer, schwache Kegel — Atmosphäre, kein Wettbewerb mit der Überschrift.
+Ohne WebGL, bei abgeschalteten Animationen oder wenn die Bibliothek nicht lädt,
+zeigt die Seite eine Traverse aus reinem CSS und funktioniert vollständig.
 
-**LED.** Eine 3 px hohe Leiste am oberen Rand füllt sich mit dem
-Scrollfortschritt. Dazu genau ein LED-Trenner pro Seite, der beim
-Hereinscrollen von links nach rechts zündet.
+Sonst bewegt sich nichts. Scroll-Fortschrittsbalken, LED-Trenner und
+Einblend-Animationen sind raus — sie haben Aufmerksamkeit gekostet, ohne etwas
+zu sagen.
 
 ## Was aufgeräumt wurde
 
@@ -56,6 +68,17 @@ Hereinscrollen von links nach rechts zündet.
 Nichts musste dafür weggelassen werden: Termine, Preise, Klassen, Human Pulling,
 Muttizettel und Impressum sind vollständig übernommen. Aus Emoji-Listen sind
 Spec-Listen mit Mono-Labels geworden — schneller zu scannen und weniger beliebig.
+
+## Anmeldung: eine Stelle, ein Knopf
+
+Auf der Trecker-Treck-Seite gab es zwei Wege zur Anmeldung — Human Pulling hatte
+seinen eigenen Download-Knopf, alle anderen Klassen lagen weiter unten in einer
+Liste. Jetzt gilt: **`#anmeldung` ist die einzige Anmeldestelle.** Dort stehen
+alle vier Formulare in derselben Zeilenform, Human Pulling eingeschlossen; noch
+fehlende Formulare sind sichtbar als „Folgt" gekennzeichnet statt nur blass.
+Jeder Abschnitt, in dem man sich anmelden kann, endet mit demselben Knopf mit
+derselben Beschriftung: **Zur Anmeldung ↓**. Eine Sprungnavigation unter dem
+Seitenkopf zeigt außerdem gleich, was auf der Seite überhaupt steht.
 
 ---
 

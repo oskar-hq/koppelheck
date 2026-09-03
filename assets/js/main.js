@@ -4,8 +4,6 @@
 (function () {
   'use strict';
 
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   /* --- Navigation -------------------------------------------------------- */
   var nav = document.querySelector('.nav');
   if (nav) {
@@ -27,53 +25,6 @@
     });
     menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
-  }
-
-  /* --- Scroll-Fortschritt oben (die LED-Leiste) -------------------------- */
-  var prog = document.querySelector('.prog');
-  if (prog) {
-    var progUpdate = function () {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      prog.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
-    };
-    progUpdate();
-    window.addEventListener('scroll', progUpdate, { passive: true });
-    window.addEventListener('resize', progUpdate);
-  }
-
-  /* --- LED-Bars als Sektionstrenner ------------------------------------- */
-  document.querySelectorAll('[data-leds]').forEach(function (bar) {
-    var build = function () {
-      var n = Math.max(12, Math.round(bar.offsetWidth / 13));
-      if (bar.childElementCount === n) return;
-      bar.textContent = '';
-      var frag = document.createDocumentFragment();
-      for (var i = 0; i < n; i++) {
-        var led = document.createElement('span');
-        led.style.setProperty('--i', i);
-        frag.appendChild(led);
-      }
-      bar.appendChild(frag);
-    };
-    build();
-    window.addEventListener('resize', build);
-  });
-
-  /* --- Sichtbarkeit: Reveal + LED-Bars zünden --------------------------- */
-  var watched = document.querySelectorAll('.rv, .ledbar');
-  if (watched.length) {
-    if ('IntersectionObserver' in window && !reduced) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          if (!en.isIntersecting) return;
-          en.target.classList.add('is-in');
-          io.unobserve(en.target);
-        });
-      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
-      watched.forEach(function (el) { io.observe(el); });
-    } else {
-      watched.forEach(function (el) { el.classList.add('is-in'); });
-    }
   }
 
   /* --- Countdown --------------------------------------------------------- */
