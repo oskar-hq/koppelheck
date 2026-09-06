@@ -34,7 +34,7 @@ Für Labels und Zahlen **Space Mono**.
 ```
 Hero          Original-Logo + Slogan "…deine Partylocation!", Scheinwerfer dahinter
 Nächster      Die einzige Magenta-Fläche der Seite: Datum, Name, Eckdaten, Countdown
-Schnellzugriff Termine · Muttizettel · Anmeldung · Anfahrt · Anrufen
+Schnellzugriff Termine · Muttizettel · Anmeldung
 Weitere       Die drei folgenden Termine als leichte Liste
 Trecker Treck Kurzfassung mit Foto, Rest auf eigener Seite
 Gut zu wissen Alter, Einlass, Anfahrt, Kontakt

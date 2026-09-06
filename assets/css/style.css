@@ -362,9 +362,9 @@ p a:not(.btn):hover, dd a:not(.btn):hover, li a:not(.btn):hover, .crumb a:hover 
   display: block; font-size: 1.08rem; font-weight: 600; line-height: 1.2;
   color: var(--acc);                      /* Farbe = klickbar */
 }
-@media (max-width: 619px)  { .quick a:last-child { grid-column: 1 / -1; min-height: 104px; } }
-@media (min-width: 620px)  { .quick { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (min-width: 1000px) { .quick { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+/* Drei Kacheln: auf dem Handy 2 + 1 über die volle Breite, ab 620 px nebeneinander */
+@media (max-width: 619px) { .quick a:last-child { grid-column: 1 / -1; min-height: 104px; } }
+@media (min-width: 620px) { .quick { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* --- Termin-Zeile -------------------------------------------------------- */
 .ev {
