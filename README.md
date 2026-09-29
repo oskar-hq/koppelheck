@@ -3,31 +3,51 @@
 Ein Neuentwurf der Website für die **Wiesenhalle Koppelheck** in Niesgrau —
 eigenständig, ohne Baukasten, ohne Framework.
 
-**Gestalterische Linie:** schwarz, eine einzige Signalfarbe, harte Kanten, große
-Typo bis an den Rand. Keine Verläufe, keine Weichzeichner, keine runden Ecken —
-das sind die Merkmale, an denen Standard-Layouts sofort erkennbar sind. Die
-Signalfarbe ist das Magenta vom Original-Flyer. Der Trecker Treck bekommt als
-Tagesveranstaltung ein eigenes Grün.
+**Gestalterische Linie (Premium-Relaunch, Mobile First):** tiefes Schwarz, eine
+einzige Signalfarbe, feine Haarlinien, weiche Radien und Licht statt Fläche —
+Magenta-Schleier im Hero, leichtes Filmkorn, Glasflächen für Kopfzeile und Dock.
+Die Signalfarbe ist das Magenta vom Original-Flyer; die Trecker-Treck-Seite
+schaltet über `body.theme-lime` komplett auf Grün um.
 
-Als Überschriftenschrift läuft **Archivo Black** — sie kommt dem
-Original-Logo am nächsten. Für Labels und Zahlen **Space Mono**, für Fließtext
-**Inter**.
+**Schriften (lokal in `assets/fonts/`, keine Verbindung zu Google):**
+**Archivo** (variabel, breit geschnitten, 800–900) für Überschriften — kommt dem
+Original-Logo am nächsten. **Inter** für Fließtext, **Geist Mono** für Labels,
+Uhrzeiten und Zahlen. Alle drei stehen unter der SIL Open Font License.
+
+**Auf dem Handy** sitzt die Navigation als Tab-Dock unten im Daumenbereich
+(mit Safe-Area für iPhones), oben nur Logo und „Anrufen". Ab 900 px wandert die
+Navigation als Pillen-Menü in die Kopfzeile.
 
 ---
 
 ## Aufbau der Startseite
 
 ```
-Hero          Original-Logo + Slogan "…deine Partylocation!", Scheinwerfer dahinter
-Nächster      Die einzige Magenta-Fläche der Seite: Datum, Name, Eckdaten, Countdown
-Schnellzugriff Termine · Muttizettel · Anmeldung · Anfahrt · Anrufen
-Weitere       Die drei folgenden Termine als leichte Liste
-Trecker Treck Kurzfassung mit Foto, Rest auf eigener Seite
-Gut zu wissen Alter, Einlass, Anfahrt, Kontakt
+Hero          Slogan "…deine Partylocation!", Scheinwerfer-Traverse dahinter
+Ticket        Nächste Party als Eintrittskarte: Datum, Eckdaten, Countdown, Aktionen
+Schnellzugriff Muttizettel · Anfahrt · Anrufen · Anmeldung
+Termine       Alle Termine als Karten, der nächste ist hervorgehoben
+Trecker Treck Teaser-Karte mit Foto und Eckdaten
+Gut zu wissen Alter, Einlass, Anfahrt, Fragen
 ```
 
-Eine Signalfarbe pro Seite: Magenta auf der Startseite, Grün auf der
-Trecker-Treck-Seite. Genau eine farbige Fläche, alles andere schwarz.
+### Termine pflegen
+
+Termine stehen nur an **einer** Stelle: als `<article class="ev">` in
+`index.html`. Das Ticket oben befüllt sich daraus selbst.
+
+| Attribut          | Wofür                                              |
+|-------------------|----------------------------------------------------|
+| `data-start`      | Beginn mit Zeitzone, z. B. `2026-10-03T20:00:00+02:00` |
+| `data-when`       | Zeile über dem Namen im Ticket, z. B. `Samstag · ab 20:00` |
+| `data-price`      | Eintritt im Ticket (optional)                      |
+| `data-highlight`  | Zweite Eckdate im Ticket, `Label|Wert` (optional)  |
+| `data-action`     | an einem Link im Termin: wird zweiter Ticket-Button |
+| `ev--away`        | Klasse für Termine in fremder Halle (Gastspiel)    |
+
+Vergangene Termine (7 Stunden nach Beginn) blendet das Skript automatisch aus,
+während einer Party zeigt das Ticket „Läuft gerade". Ist kein Termin mehr übrig,
+steht dort „Neue Termine folgen".
 
 ## Die zwei Bewegungen
 
@@ -38,9 +58,9 @@ verschwindet, übrig bleibt die leuchtende LED. Ohne WebGL, bei abgeschalteten
 Animationen oder wenn die Bibliothek nicht lädt, zeigt die Seite eine Traverse
 aus reinem CSS und funktioniert vollständig.
 
-**LED.** Eine 3 px hohe Leiste am oberen Rand füllt sich mit dem
-Scrollfortschritt. Dazu genau ein LED-Trenner pro Seite, der beim
-Hereinscrollen von links nach rechts zündet.
+**LED.** Eine 2 px hohe Leiste am oberen Rand füllt sich mit dem
+Scrollfortschritt. Auf den Unterseiten zündet unter dem Seitenkopf eine Reihe
+Leuchtdioden von links nach rechts.
 
 ## Was aufgeräumt wurde
 
@@ -68,8 +88,9 @@ muttizettel.html      Download + Erklärung
 kontakt.html          Formular, Adresse, Anfahrt
 impressum.html
 datenschutz.html
-assets/css/style.css  Design-System
-assets/js/main.js     Navigation, LED-Leiste, Countdown, Formular
+assets/css/style.css  Design-System (Mobile First)
+assets/fonts/         Archivo, Inter, Geist Mono (woff2, lokal)
+assets/js/main.js     Kopfzeile, LED-Leiste, Termine/Ticket, Countdown, Formular
 assets/js/rig.js      Scheinwerfer-Traverse (three.js)
 assets/pdf/           Formulare (aktuell Platzhalter)
 assets/img/           Fotos (siehe assets/img/README.md)
@@ -100,8 +121,11 @@ Keine Build-Schritte: `index.html` im Browser öffnen genügt.
 Die Koordinaten der Halle (54.749462, 9.838642) stecken an drei Stellen:
 in der eingebetteten Karte, in den Links zu Google Maps und Apple Karten
 (beide in `kontakt.html`) und in den strukturierten Daten in `index.html`.
-6. Optional: Google Fonts und three.js lokal ausliefern, dann geht keine
-   Verbindung mehr an externe Server.
+6. Optional: three.js lokal ausliefern, dann geht keine Verbindung mehr an
+   externe Server (die Schriften liegen bereits lokal).
+7. **Trecker Treck 2027** — der Termin 2026 ist vorbei; die Seite zeigt
+   automatisch „Rückblick". Sobald das neue Datum feststeht, Texte und die
+   `data-past-after`-Attribute (Startseite und `trecker-treck.html`) anpassen.
 
 ---
 
